@@ -14,29 +14,38 @@
             $('tr').click(function(){
                 $('tr').removeClass();
                 $(this).toggleClass('selected');
-                // $(this).addClass('selected');
-
             });
         });
         $(document).ready(function(){$('.btn-danger').click(function(){
-            $('.selected').remove();
+           $(".selected").remove();
         });
         });
+
+
+
+
+
     </script>
     <script>
         $(document).ready(function(){
             $("tr").click(function(){
-
                     $("button").toggle('slow');
-
             });
         });
+    $(document).ready(function () {
+        $("tr").click(function () {
+            let clickId = $(this).prop('id');
+        });
+    });
+
     </script>
 
 
     <title>Add Goods</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+<%--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"--%>
+<%--          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">--%>
     <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/my.css" rel="stylesheet">
 </head>
@@ -49,7 +58,7 @@
         </div>
 
         <ul class="navbar-nav">
-            <li><a href="${pageContext.request.contextPath}/GoodsManager/" class="nav-link">Goods</a></li>
+            <li><a href="${pageContext.request.contextPath}/GoodsManager/?id=1" class="nav-link">Goods</a></li>
             <li><a class="nav-link" href="<c:url value="/logout" />">Logout</a></li>
         </ul>
     </nav>
@@ -57,26 +66,26 @@
 <div class="container">
 
     <label for="category">Category</label>
-    <c:url value="/GoodsManager/get" var="get"/>
-    <form:form action="${get}" method="post" modelAttribute="categoryDto">
-        <form:select id="category" path="id">
+        <form:select id="category" path="id" onchange="if (this.value) window.location.href = this.value">
 <%--<select id="category" name="Choose category" >--%>
+            <option value="">SELECT</option>
     <c:forEach var="category" items="${categories}">
-        <option value="${category.id}">${category.name}</option>
+        <option value="${pageContext.request.contextPath}/GoodsManager/?id=<c:out value='${category.id}' />">${category.name}</option>
     </c:forEach>
 <%--</select>--%>
         </form:select>
-    </form:form>
 </div>
 <div class="container">
     <h1>Goods Table</h1>
     <table id="data" class="table table-dark table-hover" >
         <c:forEach var="goo" items="${goods}">
-            <tr>
+            <tr id="${goo.id}">
                 <td>${goo.id}</td>
                 <td>${goo.name}</td>
                 <td>${goo.brand}</td>
                 <td>${goo.color}</td>
+                <td><a class="btn btn-primary btn-list" href="${pageContext.request.contextPath}/GoodsManager/edit?id=<c:out value='${goo.id}' />" >EDIT</a></td>
+                <td><a class="btn btn-danger btn-list" href="${pageContext.request.contextPath}/GoodsManager/delete?id=<c:out value='${goo.id}' />" >DELETE</a></td>
             </tr>
         </c:forEach>
     </table>
@@ -131,8 +140,11 @@
         </div>
     </form:form>
 </div>
-<%--<%@ include file="/WEB-INF/pages/footer.jsp" %>--%>
-
+<footer>
+<div class="col-xl" style="margin-bottom:0; background-color: cornflowerblue;" >
+    <%@ include file="/WEB-INF/pages/footer.jsp" %>
+</div>
+</footer>
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

@@ -326,6 +326,6 @@ input#appt{
     position: absolute;
     left: 0;
     bottom: 0;
-    width: 100%;
+    min-width: 1200px;
     height: 150px;
 }

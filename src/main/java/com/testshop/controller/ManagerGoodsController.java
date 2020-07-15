@@ -77,14 +77,14 @@ public class ManagerGoodsController {
 //     *
 //     * @return
 //     */
-//    @GetMapping(value = "/edit")
-//    public ModelAndView edit(HttpServletRequest request) throws Exception {
-//        id = Long.parseLong(request.getParameter("id"));
-//        AssignmentDto assignmentDto = assignmentService.getById(id);
-//        ModelAndView model = new ModelAndView("editAssignment");
-//        model.addObject("assignmentDto", assignmentDto);
-//        return model;
-//    }
+    @GetMapping(value = "/edit")
+    public ModelAndView edit(HttpServletRequest request) throws Exception {
+        id = Long.parseLong(request.getParameter("id"));
+        GoodsDto goodsDto = goodsService.getById(id);
+        ModelAndView model = new ModelAndView("editGoods");
+        model.addObject("goodsDto", goodsDto);
+        return model;
+    }
 //
 //    /**
 //     * update AsssignmentDto
@@ -92,14 +92,14 @@ public class ManagerGoodsController {
 //     * @param assignmentDto
 //     * @return ModelAndView
 //     */
-//    @PostMapping(value = "/edit")
-//    public ModelAndView edit(@ModelAttribute("assignment") AssignmentDto assignmentDto) throws JMSException {
-//        assignmentDto.setId(id);
-//        assignmentService.update(assignmentDto);
-//        Long patientId = assignmentService.getPatientId(id);
-//        eventService.sendUpdatedEvents();
-//        return new ModelAndView("redirect:/patients/assignments?id=" + patientId);
-//    }
+    @PostMapping(value = "/edit")
+    public ModelAndView edit(@ModelAttribute("assignment") GoodsDto goodsDto) throws JMSException {
+        goodsDto.setId(id);
+        goodsService.update(goodsDto);
+        Long categoryId = goodsService.getCategoryId(id);
+
+        return new ModelAndView("redirect:/GoodsManager/?id=" + categoryId);
+    }
 //
 //    /**
 //     * delete Assignment and update table of Events
@@ -108,11 +108,11 @@ public class ManagerGoodsController {
 //     * @return
 //     * @throws JMSException
 //     */
-//    @GetMapping(value = "/delete")
-//    public ModelAndView delete(HttpServletRequest request) throws JMSException {
-//        id = Long.parseLong(request.getParameter("id"));
-//        Long categoryId = goodsService.getCategoryId(id);
-//        goodsService.deleteById(id);
-//        return new ModelAndView("redirect:/patients/assignments?id=" + categoryId);
-//    }
+    @GetMapping(value = "/delete")
+    public ModelAndView delete(HttpServletRequest request) throws JMSException {
+        id = Long.parseLong(request.getParameter("id"));
+        Long categoryId = goodsService.getCategoryId(id);
+        goodsService.deleteById(id);
+        return new ModelAndView("redirect:/GoodsManager/?id=" + categoryId);
+    }
 }
