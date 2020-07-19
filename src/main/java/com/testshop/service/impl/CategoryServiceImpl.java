@@ -45,6 +45,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public void add(Category category) {
+
+//        Category c = categoryDAO.getById(categoryDto.getId());
+//        c.setName(categoryDto.getName());
+//        c.setGoods(categoryDto.getGoods());
+
+
         categoryDAO.add(category);
     }
 

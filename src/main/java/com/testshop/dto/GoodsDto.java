@@ -9,6 +9,8 @@ public class GoodsDto {
    private Long id;
    private String name;
    private int price;
+   private String imageURL;
+   private String description;
    private Long category_id;
    private String color;
    private int power;

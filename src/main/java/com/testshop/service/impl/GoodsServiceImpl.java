@@ -85,12 +85,14 @@ public class GoodsServiceImpl implements GoodsService {
         goodsDto.setId(goods.getId());
         goodsDto.setName(goods.getName());
         goodsDto.setPrice(goods.getPrice());
+        goodsDto.setImageURL(goods.getImageURL());
+        goodsDto.setDescription(goods.getDescription());
         goodsDto.setCategory_id(goods.getCategory().getId());
         goodsDto.setColor(goods.getColor());
         goodsDto.setPower(goods.getPower());
         goodsDto.setBrand(goods.getBrand());
         goodsDto.setSize(goods.getSize());
-        goodsDto.setWeight(goods.getWeight());
+        goodsDto.setWeight (goods.getWeight());
         goodsDto.setQuantity(goods.getQuantity());
 
         return goodsDto;
@@ -100,6 +102,8 @@ public class GoodsServiceImpl implements GoodsService {
         goods.setName(goodsDto.getName());
         goods.setPrice(goodsDto.getPrice());
         goods.setColor(goodsDto.getColor());
+        goods.setImageURL(goodsDto.getImageURL());
+        goods.setDescription(goodsDto.getDescription());
         goods.setPower(goodsDto.getPower());
         goods.setBrand(goodsDto.getBrand());
         goods.setSize(goodsDto.getSize());

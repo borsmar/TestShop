@@ -21,6 +21,12 @@ public class Goods {
     @Column
     int price;
 
+    @Column
+    String imageURL;
+
+    @Column
+    String description;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;

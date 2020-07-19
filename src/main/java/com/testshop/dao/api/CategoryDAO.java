@@ -1,5 +1,6 @@
 package com.testshop.dao.api;
 
+import com.testshop.dto.CategoryDto;
 import com.testshop.model.Category;
 
 import java.util.List;
