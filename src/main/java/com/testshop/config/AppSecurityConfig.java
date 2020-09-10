@@ -57,7 +57,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 //                antMatchers("/events/**").access("hasAnyRole('ADMIN','USER')")
                 .and()
                 .formLogin().loginPage("/index")
-                .defaultSuccessUrl("/GoodsManager/?id=1")
+                .defaultSuccessUrl("/GoodsManager/")
                 .failureUrl("/index?error")
                 .usernameParameter("username").passwordParameter("password")
                 .and()

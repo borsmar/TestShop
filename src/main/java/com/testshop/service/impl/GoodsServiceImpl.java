@@ -41,6 +41,36 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsDtos;
     }
 
+
+    @Override
+    @Transactional
+    public List<GoodsDto> sortByPrice(Long id, Integer offset, String sort) {
+
+
+
+//        if(offset == null || offset == 1) {
+//            offset = 0;
+//        } else {
+//            offset= (offset*10);
+//        }
+
+        if(offset == null || offset == 1) {
+            offset = 0;
+        } else {
+            offset= (offset-1)*4;
+        }
+
+        List<Goods> goodsList = goodsDAO.sortByPrice(id, offset, sort);
+        List<GoodsDto> goodsDtos = new ArrayList<>();
+        for(Goods goods : goodsList){
+            GoodsDto goodsDto = convertGoodsToDto(goods);
+            goodsDtos.add(goodsDto);
+        }
+        return goodsDtos;
+    }
+
+
+
     @Override
     @Transactional
     public GoodsDto getById(Long id) {
@@ -79,6 +109,27 @@ public class GoodsServiceImpl implements GoodsService {
         Category category = goods.getCategory();
         return category.getId();
     }
+
+    @Override
+    @Transactional
+    public int countPagesByCategory(Long id){
+
+        int count = goodsDAO.countGoods(id);
+
+
+//        if(count % 20 != 0){
+//            return (count/20)+1;
+//        }
+//        else return count/20;
+
+        if(count % 4 != 0){
+            return (count/4)+1;
+        }
+        else return count/4;
+
+    }
+
+
 
     public static GoodsDto convertGoodsToDto(Goods goods){
         GoodsDto goodsDto = new GoodsDto();

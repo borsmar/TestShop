@@ -4,61 +4,49 @@
 
 <html>
 <style>
-    .selected { background-color: grey; }
+    .selected {
+        background-color: grey;
+    }
 </style>
 
 <head>
+    <meta name="_csrf" content="${_csrf.token}"/>
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $('tr').click(function(){
-                $('tr').removeClass();
-                $(this).toggleClass('selected');
-            });
-        });
-        $(document).ready(function(){$('.btn-danger').click(function(){
-           $(".selected").remove();
-        });
-        });
-
-
-
-
-
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/deleteCategory.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/getCategories.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/getItemsByCategory.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/deleteItem.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/createItem.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/createCategory.js"></script>
+    <script type="text/javascript">
+        $(document).ready(getItemsByCategory(1));
     </script>
-    <script>
-        $(document).ready(function(){
-            $("tr").click(function(){
-                    $("button").toggle('slow');
-            });
-        });
-    $(document).ready(function () {
-        $("tr").click(function () {
-            let clickId = $(this).prop('id');
-        });
-    });
-
+    <script type="text/javascript">
+        $(document).ready(getCategories());
     </script>
-
 
     <title>Add Goods</title>
-<%--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">--%>
 
-<%--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"--%>
-<%--          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">--%>
-<%--    <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">--%>
+
+
     <link href="${pageContext.request.contextPath}/resources/css/my.css" rel="stylesheet">
     <link rel="icon" href="${pageContext.request.contextPath}/resources/img/mdb-favicon.ico" type="image/x-icon">
     <!-- Font Awesome -->
     <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- Google Fonts Roboto -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
     <!-- Bootstrap core CSS -->
-    <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css" >
+    <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <!-- Material Design Bootstrap -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/mdb.min.css">
     <!-- Your custom styles (optional) -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
+
+
+
 
 </head>
 
@@ -77,23 +65,21 @@
     </nav>
     <div class="sidebar-fixed position-fixed">
         <a href="#" class="logo-wrapper waves-effect">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Aperture_Science.svg/1200px-Aperture_Science.svg.png" alt="" class="img-fluid">
+            <img src="https://www.freelogodesign.org/file/app/client/thumb/600ebf37-f8bc-4710-addd-a16f17124f63_200x200.png?1597678551852"
+                 alt="" class="img-fluid">
         </a>
         <div class="list-group list-group-flush">
-        <a href="#" class="list-group-item active waves-effect">
-            <i class="fa fa-pie-chart mr-3"></i>Dashboard
-        </a>
-        <a href="#" class="list-group-item waves-effect">
-            <i class="fa fa-user mr-3"></i>Profile
-        </a>
-        <a href="#" class="list-group-item waves-effect">
-            <i class="fa fa-table mr-3"></i>Tables
-        </a>
-        <a href="#" class="list-group-item waves-effect">
-            <i class="fa fa-map mr-3"></i>Maps
-        </a>
+            <a href="#" class="list-group-item active waves-effect">
+                <i class="fa fa-pie-chart mr-3"></i>Dashboard
+            </a>
             <a href="#" class="list-group-item waves-effect">
-                <i class="fa fa-money mr-3"></i>Orders
+                <i class="fa fa-user mr-3"></i>Profile
+            </a>
+            <a href="#" class="list-group-item waves-effect">
+                <i class="fa fa-table mr-3"></i>Tables
+            </a>
+            <a href="#" class="list-group-item waves-effect">
+                <i class="fa fa-map mr-3"></i>Orders
             </a>
         </div>
     </div>
@@ -102,175 +88,91 @@
 <main class="pt-5 max-lg-5">
     <div class="container-fluid mt-5">
         <div class="card mb-4 wow fadeIn">
-            <div class="card-header"><form:select id="category" path="id" onchange="if (this.value) window.location.href = this.value">
-                <option value="">SELECT CATEGORY</option>
-                <c:forEach var="category" items="${categories}">
-                    <option value="${pageContext.request.contextPath}/GoodsManager/?id=<c:out value='${category.id}' />">${category.name}</option>
-                </c:forEach>
-            </form:select></div>
-                <div class="card-body d-sm-flex justify-content-between">
-                    <table id="data1" class="table table-dark table-hover">
-                        <c:forEach var="goo" items="${goods}">
-                            <tr id="${goo.id}">
-                                <td>${goo.id}</td>
-                                <td>${goo.name}</td>
-                                <td>${goo.brand}</td>
-                                <td>${goo.color}</td>
-                                <td><a class="btn btn-primary btn-list" href="${pageContext.request.contextPath}/GoodsManager/edit?id=<c:out value='${goo.id}' />" >EDIT</a></td>
-                                <td><a class="btn btn-danger btn-list" href="${pageContext.request.contextPath}/GoodsManager/delete?id=<c:out value='${goo.id}' />" >DELETE</a></td>
-                            </tr>
-                        </c:forEach>
-                    </table>
+            <div class="card-header">
+                <select id="cat" onchange="getItemsByCategory(this.value)">
+            </select>
+            </div>
+            <div id="tableContainer" class="card-body d-sm-flex justify-content-between">
+            </div>
+            <div class="container">
+
+
+                <div class="row">
+                    <div class="col-3 ">
+                        <label for="name">Name</label>
+                    </div>
+                    <div class="col-lg mb-3">
+                        <input class="form-control form-control-lg" id="name" placeholder="type name"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <label for="brand">Brand</label>
+                    </div>
+                    <div class="col-lg mb-3">
+                        <input class="form-control form-control-lg" id="brand" placeholder="type brand"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <label for="color">Color</label>
+                    </div>
+                    <div class="col-lg mb-3">
+                        <input class="form-control form-control-lg" id="color" placeholder="type color"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg">
+                    <input class="col-lg mb-2" type="submit" value="Add" onclick="createItem()">
+                    </div>
                 </div>
             </div>
+        </div>
     </div>
-<div class="container">
-    <c:url value="/GoodsManager/add" var="add"/>
-    <form:form action="${add}" method="post" modelAttribute="goodsDto">
 
-        <div class="row">
-            <div class="col-3 ">
-                <label for="name1">Name</label>
-            </div>
-            <div class="col-lg">
-                <form:input path="name" id="name1" placeholder="type name"/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-3">
-                <label for="brand1">Brand</label>
-            </div>
-            <div class="col-lg">
-                <form:input path="brand" id="brand1" placeholder="type brand"/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-3">
-                <label for="color1">Color</label>
-            </div>
-            <div class="col-lg">
-                <form:input path="color" id="color1" placeholder="type color"/>
-            </div>
-        </div>
-
-        <div class="row">
-            <input type="submit" value="Add">
-        </div>
-    </form:form>
-</div>
 
     <div class="container-fluid mt-5">
         <div class="card mb-4 wow fadeIn">
-<%--            <div class="card-header"><form:select id="category" path="id" onchange="if (this.value) window.location.href = this.value">--%>
-<%--                <option value="">SELECT CATEGORY</option>--%>
-<%--                <c:forEach var="category" items="${categories}">--%>
-<%--                    <option value="${pageContext.request.contextPath}/GoodsManager/?id=<c:out value='${category.id}' />">${category.name}</option>--%>
-<%--                </c:forEach>--%>
-<%--            </form:select></div>--%>
-            <div class="card-body d-sm-flex justify-content-between">
-                <table id="data2" class="table table-dark table-hover">
-                    <c:forEach var="cat" items="${categories}">
-                        <tr>
-                            <td>${cat.id}</td>
-                            <td>${cat.name}</td>
-                            <td><a class="btn btn-primary btn-list" href="#" >EDIT</a></td>
-                            <td><a class="btn btn-danger btn-list" href="#" >DELETE</a></td>
-                        </tr>
-                    </c:forEach>
-                </table>
+            <div id="TableCatContainer" class="card-body d-sm-flex justify-content-between">
+
             </div>
         </div>
     </div>
 
     <div class="container">
-        <c:url value="/GoodsManager/categoryAdd" var="categoryAdd"/>
-        <form:form action="${categoryAdd}" method="post" modelAttribute="category">
 
         <div class="row">
             <div class="col-3 ">
-                <label for="name1">Name</label>
+                <label for="namecat">Name</label>
             </div>
             <div class="col-lg">
-                <form:input path="name" id="name1" placeholder="type name"/>
+                <input class="form-control form-control-lg" id="namecat" placeholder="type name"/>
             </div>
             <div class="col-3">
-                <input type="submit" value="Add">
+                <input type="submit" value="Add" onclick="createCategory()">
             </div>
-            </form:form>
+
         </div>
 
 
-        </div>
+    </div>
 
 </main>
 
 
-
-
-
-<%--<div class="container">--%>
-<%--    <div class="row">--%>
-<%--        <div class="col-3">--%>
-<%--    <button type="button" style="display: none" class="btn btn-primary">UPDATE</button>--%>
-<%--     <button  type="button" style="display: none" class="btn btn-danger" >DELETE</button>--%>
-
-
-<%--        </div>--%>
-<%--        <div class="col-6">--%>
-<%--        </div>--%>
-<%--            <div class="col-3">--%>
-<%--    <button type="button" style="display: none" class="btn btn-light">CANCEL</button>--%>
-<%--            </div>--%>
-<%--    </div>--%>
-<%--    </div>--%>
-
-<%--<div class="container">--%>
-<%--    <c:url value="/GoodsManager/add" var="add"/>--%>
-<%--    <form:form action="${add}" method="post" modelAttribute="goodsDto">--%>
-
-<%--        <div class="row">--%>
-<%--            <div class="col-25">--%>
-<%--                <label for="name1">Name</label>--%>
-<%--            </div>--%>
-<%--            <div class="col-75">--%>
-<%--                <form:input path="name" id="name1" placeholder="type name"/>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--        <div class="row">--%>
-<%--            <div class="col-25">--%>
-<%--                <label for="brand1">Brand</label>--%>
-<%--            </div>--%>
-<%--            <div class="col-75">--%>
-<%--                <form:input path="brand" id="brand1" placeholder="type brand"/>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--        <div class="row">--%>
-<%--            <div class="col-25">--%>
-<%--                <label for="color1">Color</label>--%>
-<%--            </div>--%>
-<%--            <div class="col-75">--%>
-<%--                <form:input path="color" id="color1" placeholder="type color"/>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-
-<%--        <div class="row">--%>
-<%--            <input type="submit" value="Add">--%>
-<%--        </div>--%>
-<%--    </form:form>--%>
-<%--</div>--%>
-
-    <%@ include file="/WEB-INF/pages/footer.jsp" %>
+<%@ include file="/WEB-INF/pages/footer.jsp" %>
 
 </body>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/mdb.min.js"></script>
 
 
 </html>

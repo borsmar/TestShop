@@ -9,10 +9,13 @@ import com.testshop.service.api.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.jms.JMSException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.testshop.service.impl.GoodsServiceImpl.convertDtoToGoods;
+import static com.testshop.service.impl.GoodsServiceImpl.convertGoodsToDto;
+
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
@@ -44,12 +47,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
-    public void add(Category category) {
+    public void add(CategoryDto categoryDto) {
 
-//        Category c = categoryDAO.getById(categoryDto.getId());
-//        c.setName(categoryDto.getName());
-//        c.setGoods(categoryDto.getGoods());
-
+        Category category = convertDtoToCategory(new Category(), categoryDto);
 
         categoryDAO.add(category);
     }
@@ -59,7 +59,15 @@ public class CategoryServiceImpl implements CategoryService {
     public void update(CategoryDto categoryDto) throws JMSException {
         Category c = categoryDAO.getById(categoryDto.getId());
         c.setName(categoryDto.getName());
-        c.setGoods(categoryDto.getGoods());
+
+        List<Goods> goodsList = new ArrayList<>();
+
+        for(GoodsDto goodsDtos : categoryDto.getGoodsDtos()){
+            Goods goods = convertDtoToGoods(new Goods(), goodsDtos);
+            goodsList.add(goods);
+        }
+
+        c.setGoods(goodsList);
 
         categoryDAO.update(c);
     }
@@ -74,9 +82,38 @@ public class CategoryServiceImpl implements CategoryService {
         CategoryDto categoryDto = new CategoryDto();
         categoryDto.setId(category.getId());
         categoryDto.setName(category.getName());
-        categoryDto.setGoods(category.getGoods());
+
+        List<GoodsDto> goodsDtoList = new ArrayList<>();
+
+        for(Goods goods : category.getGoods()){
+            GoodsDto goodsDto = convertGoodsToDto(goods);
+            goodsDtoList.add(goodsDto);
+        }
+
+        categoryDto.setGoodsDtos(goodsDtoList);
 
         return categoryDto;
     }
+
+    public  Category convertDtoToCategory(Category category, CategoryDto categoryDto){
+
+
+        category.setName(categoryDto.getName());
+
+
+     if(categoryDto.getGoodsDtos() != null){
+
+        List<Goods> goodsList = new ArrayList<>();
+        for(GoodsDto goodsDtos : categoryDto.getGoodsDtos()){
+            Goods goods = convertDtoToGoods(new Goods(),goodsDtos);
+            goodsList.add(goods);
+        }
+        category.setGoods(goodsList);
+         }
+
+
+        return category;
+    }
+
 
 }

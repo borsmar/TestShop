@@ -13,7 +13,7 @@ public interface CategoryService {
 
     CategoryDto getById(Long id);
 
-    void add(Category category);
+    void add(CategoryDto category);
 
     void update(CategoryDto category) throws JMSException;
 

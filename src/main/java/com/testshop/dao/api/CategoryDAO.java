@@ -7,8 +7,12 @@ import java.util.List;
 
 public interface CategoryDAO {
     Category add(Category category);
+
     List<Category> getAll();
+
     Category getById(Long id);
+
     void update(Category category);
+
     void delete(Long id);
 }

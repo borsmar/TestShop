@@ -10,14 +10,16 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- Google Fonts Roboto -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
     <!-- Bootstrap core CSS -->
-    <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css" >
+    <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <!-- Material Design Bootstrap -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/mdb.min.css">
     <!-- Your custom styles (optional) -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
     <title>Edit Goods</title>
+
 
 </head>
 <body>
@@ -35,7 +37,8 @@
     </nav>
     <div class="sidebar-fixed position-fixed">
         <a href="#" class="logo-wrapper waves-effect">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Aperture_Science.svg/1200px-Aperture_Science.svg.png" alt="" class="img-fluid">
+            <img src="https://www.freelogodesign.org/file/app/client/thumb/600ebf37-f8bc-4710-addd-a16f17124f63_200x200.png?1597678551852"
+                 alt="" class="img-fluid">
         </a>
         <div class="list-group list-group-flush">
             <a href="#" class="list-group-item active waves-effect">
@@ -48,10 +51,7 @@
                 <i class="fa fa-table mr-3"></i>Tables
             </a>
             <a href="#" class="list-group-item waves-effect">
-                <i class="fa fa-map mr-3"></i>Maps
-            </a>
-            <a href="#" class="list-group-item waves-effect">
-                <i class="fa fa-money mr-3"></i>Orders
+                <i class="fa fa-map mr-3"></i>Orders
             </a>
         </div>
     </div>
@@ -72,12 +72,11 @@
         </div>
 
 
-
-</div>
+    </div>
 
     <div class="container">
         <h1>Goods Table</h1>
-        <table id="data" class="table table-dark table-hover" >
+        <table id="data" class="table table-dark table-hover">
 
             <tr id="${goodsDto.id}">
                 <td>${goodsDto.id}</td>
@@ -118,15 +117,36 @@
 
             <div class="row">
                 <input type="submit" value="UPDATE">
+
             </div>
         </form:form>
+
     </div>
 
 </main>
 
 
-            <%@ include file="/WEB-INF/pages/footer.jsp" %>
+<footer>
 
+    <style>
+        @media (min-width: 1200px) {
+            .navbar {
+                padding-left: 270px;
+            }
+
+            main {
+                padding-left: 270px;
+
+            }
+
+            .page-footer {
+                padding-left: 240px;
+            }
+        }
+    </style>
+
+    <%@ include file="/WEB-INF/pages/footer.jsp" %>
+</footer>
 
 
 </body>

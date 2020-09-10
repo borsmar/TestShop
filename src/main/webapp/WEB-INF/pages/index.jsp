@@ -13,7 +13,7 @@
 <%--</head>--%>
 <style>
     body {
-        background: url("https://images7.alphacoders.com/986/thumb-1920-986520.jpg");
+        background: url("https://images.pexels.com/photos/1831265/pexels-photo-1831265.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
     }
 
 
@@ -71,7 +71,7 @@
 
 
 <form name='login' class="form-signin" action="<c:url value='/index' />" method='POST'>
-    <img class="mb-4" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Breezeicons-apps-48-amarok.svg/1200px-Breezeicons-apps-48-amarok.svg.png" alt="" width="72" height="72">
+    <img class="mb-4" src="https://www.freelogodesign.org/file/app/client/thumb/600ebf37-f8bc-4710-addd-a16f17124f63_200x200.png?1597678551852" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     <label for="inputLogin" class="sr-only">Username</label>
     <div class="input-group form-group">

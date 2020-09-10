@@ -9,6 +9,8 @@ public interface GoodsService {
 
     List<GoodsDto> getAll(Long id);
 
+    List<GoodsDto> sortByPrice(Long id, Integer offset, String sort);
+
     GoodsDto getById(Long id);
 
     boolean add(GoodsDto goodsDto);
@@ -18,5 +20,8 @@ public interface GoodsService {
     void deleteById(Long goodsId) throws JMSException;
 
     Long getCategoryId(Long gooId);
+
+    int countPagesByCategory(Long id);
+
 
 }

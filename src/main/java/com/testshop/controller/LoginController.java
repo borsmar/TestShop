@@ -53,7 +53,8 @@ public class LoginController {
         }
         return "redirect:/index?logout";
     }
-//
+
+    //
     @RequestMapping(value = "/accessDenied", method = RequestMethod.GET)
     public ModelAndView accesssDenied() {
         ModelAndView model = new ModelAndView();
@@ -67,5 +68,5 @@ public class LoginController {
         ModelAndView model = new ModelAndView("addGoods");
         //User user = userService.validateUser(login);
         return model;
-   }
+    }
 }

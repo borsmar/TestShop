@@ -34,6 +34,56 @@ public class GoodsDAOImpl implements GoodsDAO {
     }
 
     @Override
+    public List<Goods> sortByPrice(Long id, Integer offset, String sort) {
+
+        List<Goods> sortedGoodsList;
+        String ord;
+        switch (sort) {
+            case "price_asc":
+                ord = "price";
+                break;
+            case "price_desc":
+                ord = "price DESC";
+                break;
+            case "newer_first":
+                ord = "id DESC";
+                break;
+            default:
+                ord = "price";
+                break;
+        }
+
+
+        Query query = entityManager.createQuery("SELECT c from Goods c where c.category.id =: id ORDER BY " + ord);
+
+
+        query.setParameter("id", id);
+
+        query.setFirstResult(offset);
+
+
+        sortedGoodsList = query.getResultList();
+
+
+        if (sortedGoodsList.size() > 4) {
+            sortedGoodsList = sortedGoodsList.subList(0, 4);
+        }
+
+        return sortedGoodsList;
+    }
+
+    @Override
+    public int countGoods(Long id) {
+
+        Query query = entityManager.createQuery("FROM Category as g LEFT join fetch g.goods where g.id=:id ");
+        query.setParameter("id", id);
+
+
+        return query.getResultList().size();
+    }
+
+
+    @Override
     public Goods getById(Long id) {
         Query query = entityManager.createQuery("FROM Goods goo where goo.id=:id");
         query.setParameter("id", id);

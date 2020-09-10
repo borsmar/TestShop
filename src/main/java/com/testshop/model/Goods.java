@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -49,6 +50,9 @@ public class Goods {
     @Column
     int quantity;
 
+    @ManyToMany
+    List<Orders> orders;
+
     public Goods(Long id, Category category, String name, int price ) {
         this.id = id;
         this.name = name;
@@ -62,6 +66,8 @@ public class Goods {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
+                ", imageURL='" + imageURL + '\'' +
+                ", description='" + description + '\'' +
                 ", category=" + category +
                 ", color='" + color + '\'' +
                 ", power=" + power +
