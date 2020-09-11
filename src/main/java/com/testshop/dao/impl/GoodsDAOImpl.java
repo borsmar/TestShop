@@ -65,8 +65,8 @@ public class GoodsDAOImpl implements GoodsDAO {
         sortedGoodsList = query.getResultList();
 
 
-        if (sortedGoodsList.size() > 4) {
-            sortedGoodsList = sortedGoodsList.subList(0, 4);
+        if (sortedGoodsList.size() > 8) {
+            sortedGoodsList = sortedGoodsList.subList(0, 8);
         }
 
         return sortedGoodsList;

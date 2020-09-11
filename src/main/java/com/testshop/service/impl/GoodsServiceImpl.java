@@ -57,7 +57,7 @@ public class GoodsServiceImpl implements GoodsService {
         if(offset == null || offset == 1) {
             offset = 0;
         } else {
-            offset= (offset-1)*4;
+            offset= (offset-1)*8;
         }
 
         List<Goods> goodsList = goodsDAO.sortByPrice(id, offset, sort);
@@ -122,10 +122,10 @@ public class GoodsServiceImpl implements GoodsService {
 //        }
 //        else return count/20;
 
-        if(count % 4 != 0){
-            return (count/4)+1;
+        if(count % 8 != 0){
+            return (count/8)+1;
         }
-        else return count/4;
+        else return count/8;
 
     }
 

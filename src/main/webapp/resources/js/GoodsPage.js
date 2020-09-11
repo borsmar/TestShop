@@ -178,9 +178,9 @@ function RightArrowClick() {
                     Pages += ('</li>');
                 }
 
-                $("#first").show();
+                // $("#first").show();
                 $('.number').remove();
-                 $('#last').hide();
+                 // $('#last').hide();
                 $("#first").after(Pages);
 
             } else if (remain > 5) {
@@ -201,7 +201,7 @@ function RightArrowClick() {
                     Pages += ('</li>');
                 }
 
-                $("#first").show();
+                // $("#first").show();
                 $('.number').remove();
                 $("#first").after(Pages);
             }
@@ -248,7 +248,7 @@ function LeftArrowClick() {
                 Pages += ('</a>');
                 Pages += ('</li>');
 
-                $("#last").show();
+                // $("#last").show();
                 $('.number').remove();
                 $("#first").after(Pages);
 
@@ -271,9 +271,10 @@ function LeftArrowClick() {
                 Pages += ('</a>');
                 Pages += ('</li>');
 
+                // $("#last").show();
                 $('.number').remove();
                 $("#last").before(Pages);
-                 $("#first").hide();
+                 // $("#first").hide();
 
 
             }

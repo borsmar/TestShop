@@ -24,21 +24,21 @@
     <style>
         html,
         body,
-        header,
+        /*header,*/
         .carousel{
             height: 60vh;
         }
         @media (min-width: 740px){
             html,
             body,
-            header,
+            /*header,*/
             .carousel{
                 height: 100vh;
             }
             @media (min-width: 800px) and (max-width: 850px){
                 html,
                 body,
-                header,
+                /*header,*/
                 .carousel{
                     height: 100vh;
                 }
@@ -164,10 +164,70 @@ background-repeat: no-repeat; background-size: cover; ">
     </div>
 </div>
 
+
+
 </header>
 
 <main>
-    <div class="container mt-5">
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-3">
+                <div class="card mt-3">
+                    <article class="card-group-item">
+                        <header class="card-header">
+                            <h6 class="title">Range input </h6>
+                        </header>
+                        <div class="filter-content">
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Min</label>
+                                        <input type="number" class="form-control" id="inputEmail4" placeholder="$0">
+                                    </div>
+                                    <div class="form-group col-md-6 text-right">
+                                        <label>Max</label>
+                                        <input type="number" class="form-control" placeholder="$1,0000">
+                                    </div>
+                                </div>
+                            </div> <!-- card-body.// -->
+                        </div>
+                    </article> <!-- card-group-item.// -->
+                    <article class="card-group-item">
+                        <header class="card-header">
+                            <h6 class="title">Selection </h6>
+                        </header>
+                        <div class="filter-content">
+                            <div class="card-body">
+                                <div class="custom-control custom-checkbox">
+                                    <span class="float-right badge badge-light round">52</span>
+                                    <input type="checkbox" class="custom-control-input" id="Check1">
+                                    <label class="custom-control-label" for="Check1">Samsung</label>
+                                </div> <!-- form-check.// -->
+
+                                <div class="custom-control custom-checkbox">
+                                    <span class="float-right badge badge-light round">132</span>
+                                    <input type="checkbox" class="custom-control-input" id="Check2">
+                                    <label class="custom-control-label" for="Check2">Black berry</label>
+                                </div> <!-- form-check.// -->
+
+                                <div class="custom-control custom-checkbox">
+                                    <span class="float-right badge badge-light round">17</span>
+                                    <input type="checkbox" class="custom-control-input" id="Check3">
+                                    <label class="custom-control-label" for="Check3">Samsung</label>
+                                </div> <!-- form-check.// -->
+
+                                <div class="custom-control custom-checkbox">
+                                    <span class="float-right badge badge-light round">7</span>
+                                    <input type="checkbox" class="custom-control-input" id="Check4">
+                                    <label class="custom-control-label" for="Check4">Other Brand</label>
+                                </div> <!-- form-check.// -->
+                            </div> <!-- card-body.// -->
+                        </div>
+                    </article> <!-- card-group-item.// -->
+                </div> <!-- card.// -->
+            </div>
+
+ <div class="col-md-9">
 
       <nav class="navbar navbar-expand-lg navbar-dark mdb-color lighten-3 mt-3 mb-2 ">
         <span class="navbar-brand">Categories:</span>
@@ -196,7 +256,7 @@ background-repeat: no-repeat; background-size: cover; ">
 
           </div>
 
-      </nav>
+            </nav>
 
         <nav class="navbar navbar-expand-lg navbar-dark blue lighten-5 mb-5">
             <span class="navbar-brand black-text">Sort by:</span>
@@ -255,7 +315,8 @@ background-repeat: no-repeat; background-size: cover; ">
 
 
         </nav>
-
+ </div>
+        </div>
     </div>
 </main>
 
