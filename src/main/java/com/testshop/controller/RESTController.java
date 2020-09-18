@@ -52,19 +52,22 @@ public class RESTController {
         return goodsService.getAll(Long.parseLong(id));
     }
 
+    @GetMapping(value="/categories/{id}/items/brands")
+    public  List<String> getBrandsByCategoryId(@PathVariable("id") String id) throws JMSException {
+        return goodsService.getBrandsByCategoryId(Long.parseLong(id));
+    }
+
 
 
     @GetMapping(value="/categories/{id}/items/{sort}/page/{page}")
-    public  List<GoodsDto> getGoodsPage(@PathVariable("id") String id, @PathVariable("page") String page,@PathVariable("sort") String sort) throws JMSException {
-        return goodsService.sortByPrice(Long.parseLong(id), Integer.parseInt(page), sort);
+    public  List<GoodsDto> getGoodsPage(@PathVariable("id") String id, @PathVariable("page") String page,@PathVariable("sort") String sort,@RequestParam String fromPrice,@RequestParam String toPrice, @RequestParam String brands) throws JMSException {
+        return goodsService.sortByPrice(Long.parseLong(id), Integer.parseInt(page), sort, Integer.parseInt(fromPrice), Integer.parseInt(toPrice), brands);
     }
 
-    @GetMapping(value = "categories/{id}/items/countPages")
-    public String countPages(@PathVariable("id") String id){
+    @GetMapping(value = "/categories/{id}/items/countPages")
+    public String countPages(@PathVariable("id") String id, @RequestParam String fromPrice,@RequestParam String toPrice){
 
-//        goodsService.countPagesByCategory(Long.parseLong(id));
-
-    return  ""+goodsService.countPagesByCategory(Long.parseLong(id));
+    return  ""+goodsService.countPagesByCategory(Long.parseLong(id), Integer.parseInt(fromPrice), Integer.parseInt(toPrice));
 
     }
 

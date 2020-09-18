@@ -169,7 +169,7 @@ background-repeat: no-repeat; background-size: cover; ">
 </header>
 
 <main>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row mt-5">
             <div class="col-md-3">
                 <div class="card mt-3">
@@ -186,7 +186,7 @@ background-repeat: no-repeat; background-size: cover; ">
                                     </div>
                                     <div class="form-group col-md-6 text-right">
                                         <label>Max</label>
-                                        <input type="number" class="form-control" placeholder="$1,0000">
+                                        <input type="number" class="form-control" id="inputEmail5" placeholder="$1,0000">
                                     </div>
                                 </div>
                             </div> <!-- card-body.// -->
@@ -197,33 +197,18 @@ background-repeat: no-repeat; background-size: cover; ">
                             <h6 class="title">Selection </h6>
                         </header>
                         <div class="filter-content">
-                            <div class="card-body">
-                                <div class="custom-control custom-checkbox">
-                                    <span class="float-right badge badge-light round">52</span>
-                                    <input type="checkbox" class="custom-control-input" id="Check1">
-                                    <label class="custom-control-label" for="Check1">Samsung</label>
-                                </div> <!-- form-check.// -->
+                            <div id="brands" class="card-body">
 
-                                <div class="custom-control custom-checkbox">
-                                    <span class="float-right badge badge-light round">132</span>
-                                    <input type="checkbox" class="custom-control-input" id="Check2">
-                                    <label class="custom-control-label" for="Check2">Black berry</label>
-                                </div> <!-- form-check.// -->
-
-                                <div class="custom-control custom-checkbox">
-                                    <span class="float-right badge badge-light round">17</span>
-                                    <input type="checkbox" class="custom-control-input" id="Check3">
-                                    <label class="custom-control-label" for="Check3">Samsung</label>
-                                </div> <!-- form-check.// -->
-
-                                <div class="custom-control custom-checkbox">
-                                    <span class="float-right badge badge-light round">7</span>
-                                    <input type="checkbox" class="custom-control-input" id="Check4">
-                                    <label class="custom-control-label" for="Check4">Other Brand</label>
-                                </div> <!-- form-check.// -->
                             </div> <!-- card-body.// -->
                         </div>
                     </article> <!-- card-group-item.// -->
+                    <article class="card-group-item">
+                        <div class="card-body">
+
+                            <button type="submit" id="sub" onclick="FilterSubmitButtonClick()" class="btn btn-primary">Submit</button>
+
+                        </div>
+                    </article>
                 </div> <!-- card.// -->
             </div>
 
@@ -276,9 +261,9 @@ background-repeat: no-repeat; background-size: cover; ">
                             Price: Low to High
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" onclick="$('#priceMenu').val('price_asc');CategoryClick($('#hid').val()); $('#navbarDropdownMenuLink').text('Price: Low to High')" >Price: Low to High</a>
-                            <a class="dropdown-item " onclick="$('#priceMenu').val('price_desc'); CategoryClick($('#hid').val());$('#navbarDropdownMenuLink').text('Price: High to Low')">Price: High to Low</a>
-                            <a class="dropdown-item" onclick="$('#priceMenu').val('newer_first');CategoryClick($('#hid').val()); $('#navbarDropdownMenuLink').text('New')" >New</a>
+                            <a class="dropdown-item" onclick="$('#priceMenu').val('price_asc');dropdownItemClick(); $('#navbarDropdownMenuLink').text('Price: Low to High')" >Price: Low to High</a>
+                            <a class="dropdown-item " onclick="$('#priceMenu').val('price_desc'); dropdownItemClick();$('#navbarDropdownMenuLink').text('Price: High to Low')">Price: High to Low</a>
+                            <a class="dropdown-item" onclick="$('#priceMenu').val('newer_first');dropdownItemClick(); $('#navbarDropdownMenuLink').text('New')" >New</a>
 
                             <input id="priceMenu" type="hidden" value="price_asc">
                         </div>
@@ -350,8 +335,13 @@ background-repeat: no-repeat; background-size: cover; ">
 
 </body>
 <script type="text/javascript">
-    $(document).ready(CategoryClick(1));
+    $(document).ready(CategoryClick($('#hid').val()));
 </script>
+
+
+<%--<script type="text/javascript">--%>
+<%--    $(document).ready(showBrands());--%>
+<%--</script>--%>
 <!-- jQuery -->
 <!-- Bootstrap tooltips -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/popper.min.js"></script>

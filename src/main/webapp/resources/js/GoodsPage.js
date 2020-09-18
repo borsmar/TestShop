@@ -1,15 +1,17 @@
-function showItems(id, page) {
-
-    let sort = $('#priceMenu').val();
 
 
-
+function getSortedItems(id,sort,page,inputPrice,outputPrice,checked) {
     $.ajax({
         url: 'http://localhost:8080/api/categories/' + id + '/items/'+ sort +'/page/' + page,
         type: 'GET',
         dataType: 'json',
         contentType: 'application/json',
         mimeType: 'application/json',
+        data : ({
+            fromPrice: inputPrice,
+            toPrice: outputPrice,
+            brands: checked,
+        }),
         success: function (data) {
 
             let table = ('');
@@ -19,7 +21,7 @@ function showItems(id, page) {
                 table += ('<div class="card">');
                 table += ('<div class="view overlay">');
                 table += ('<img class="card-img-top" src="' + obj.imageURL + '" alt="Iphone">');
-                table += ('<a href="${pageContext.request.contextPath}/Goods/Item?id=' + obj.id + '">');
+                table += ('<a href="/Goods/Item?id=' + obj.id + '">');
                 table += ('<div class="mask rgba-white-slight"></div>');
                 table += ('</a>');
                 table += ('</div>');
@@ -43,16 +45,91 @@ function showItems(id, page) {
 
 
 
-             // $("#showItems").html(table);
 
-            $('#showItems').html(table);
-            $('#showItems').hide();
-            $('#showItems').fadeIn(700);
+             $('#showItems').html(table).hide();
+             $('#showItems').fadeIn(700);
 
         }
 
     });
 
+}
+
+function showBrands() {
+
+
+
+    let id = $('#hid').val();
+
+    $.ajax({
+        url: 'http://localhost:8080/api/categories/' + id + '/items/brands',
+        type: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        mimeType: 'application/json',
+        success: function (data) {
+
+           let checkboxes = ('');
+
+
+
+
+
+            $.each(data, function (idx, obj) {
+                checkboxes+=('<div class="custom-control custom-checkbox">');
+                checkboxes+=('<span class="float-right badge badge-light round">52</span>');
+                checkboxes+=('<input type="checkbox" class="custom-control-input" value="'+obj+'" id="Check'+idx+'">');
+                checkboxes+=('<label class="custom-control-label" for="Check'+idx+'">'+obj+'</label>');
+                checkboxes+=('</div>');
+            });
+
+            $('#brands').append(checkboxes);
+
+
+        }
+
+    })
+}
+
+
+
+
+function showItems(id, page, checked) {
+
+    let sort = $('#priceMenu').val();
+
+    let inputPrice = 0;
+    let outputPrice = 0;
+
+    if($('#inputEmail4').val() !== ""){
+        inputPrice = $('#inputEmail4').val();
+    }
+    if($('#inputEmail5').val() !== ""){
+        outputPrice = $('#inputEmail5').val();
+    }
+
+
+    if(checked === "" || checked ===  undefined){
+        checked = "";
+        $.ajax({
+            url: 'http://localhost:8080/api/categories/' + id + '/items/brands',
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            mimeType: 'application/json',
+            success: function (data) {
+                $.each(data, function (idx, obj) {
+                    checked+=obj;
+                    checked+=',';
+                });
+
+                getSortedItems(id,sort,page,inputPrice,outputPrice,checked);
+            }
+        });
+    }
+    else {
+        getSortedItems(id,sort,page,inputPrice,outputPrice,checked);
+    }
 }
 
 $(document).ready(
@@ -85,11 +162,31 @@ $(document).ready(
 function CategoryClick(id) {
     $('#hid').replaceWith('<input id="hid" class="hid" type="hidden" value="' + id + '">');
 
+    let inputPrice;
+    let outputPrice;
+
+    if($('#inputEmail4').val() !== ""){
+        inputPrice = $('#inputEmail4').val();
+    }
+    else {
+         inputPrice = 0;
+    }
+
+    if($('#inputEmail5').val() !== ""){
+        outputPrice = $('#inputEmail5').val();
+    }
+    else {
+         outputPrice = 0;
+    }
 
     $.ajax({
         url: 'http://localhost:8080/api/categories/' + id + '/items/countPages',
         type: 'GET',
         dataType: "text",
+        data : ({
+            fromPrice: inputPrice,
+            toPrice: outputPrice
+        }),
         success: function (data) {
 
             let Pages = ('');
@@ -139,7 +236,8 @@ function CategoryClick(id) {
     });
 
     showItems(id, 1);
-
+    $('.custom-checkbox').fadeOut(300, function(){ $(this).remove();});
+    showBrands();
 }
 
 
@@ -147,10 +245,24 @@ function RightArrowClick() {
 
     let id = $('#hid').val();
 
+    let inputPrice = 0;
+    let outputPrice = 0;
+
+    if($('#inputEmail4').val() !== ""){
+        inputPrice = $('#inputEmail4').val();
+    }
+    if($('#inputEmail5').val() !== ""){
+        outputPrice = $('#inputEmail5').val();
+    }
+
     $.ajax({
         url: 'http://localhost:8080/api/categories/' + id + '/items/countPages',
         type: 'GET',
         dataType: "text",
+        data : ({
+            fromPrice: inputPrice,
+            toPrice: outputPrice
+        }),
         success: function (data) {
 
             let last = parseInt($('.sp').last().text());
@@ -213,10 +325,24 @@ function RightArrowClick() {
 function LeftArrowClick() {
     let id = $('#hid').val();
 
+    let inputPrice = 0;
+    let outputPrice = 0;
+
+    if($('#inputEmail4').val() !== ""){
+        inputPrice = $('#inputEmail4').val();
+    }
+    if($('#inputEmail5').val() !== ""){
+        outputPrice = $('#inputEmail5').val();
+    }
+
     $.ajax({
         url: 'http://localhost:8080/api/categories/' + id + '/items/countPages',
         type: 'GET',
         dataType: "text",
+        data : ({
+            fromPrice: inputPrice,
+            toPrice: outputPrice
+        }),
         success: function (data) {
 
             let first = parseInt($('.sp').first().text());
@@ -282,3 +408,34 @@ function LeftArrowClick() {
     });
 
 }
+
+function FilterSubmitButtonClick(){
+
+    let checked='';
+
+    $('input:checkbox:checked').each(function() {
+        checked+=($(this).val());
+        checked+=',';
+    });
+
+
+    let id = $('#hid').val();
+
+
+    showItems(id, 1, checked);
+
+}
+
+function dropdownItemClick() {
+
+    let id = $('#hid').val();
+    let checked='';
+
+    $('input:checkbox:checked').each(function() {
+        checked+=($(this).val());
+        checked+=',';
+    });
+
+    showItems(id, 1, checked);
+}
+

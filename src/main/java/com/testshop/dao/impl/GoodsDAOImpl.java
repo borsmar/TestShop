@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +35,11 @@ public class GoodsDAOImpl implements GoodsDAO {
     }
 
     @Override
-    public List<Goods> sortByPrice(Long id, Integer offset, String sort) {
+    public List<Goods> sortByPrice(Long id, Integer offset, String sort,Integer fromPrice, Integer toPrice, List<String> brands) {
+
 
         List<Goods> sortedGoodsList;
+
         String ord;
         switch (sort) {
             case "price_asc":
@@ -53,33 +56,77 @@ public class GoodsDAOImpl implements GoodsDAO {
                 break;
         }
 
-
-        Query query = entityManager.createQuery("SELECT c from Goods c where c.category.id =: id ORDER BY " + ord);
-
-
-        query.setParameter("id", id);
-
-        query.setFirstResult(offset);
-
-
-        sortedGoodsList = query.getResultList();
-
-
-        if (sortedGoodsList.size() > 8) {
-            sortedGoodsList = sortedGoodsList.subList(0, 8);
+        if(fromPrice == null){
+            fromPrice = 0;
         }
 
-        return sortedGoodsList;
+        if (toPrice == null || toPrice == 0){
+            Query query = entityManager.createQuery("SELECT c from Goods c where c.category.id =: id AND" + " c.price >=: fromPrice AND c.brand IN (:brands)  ORDER BY " + ord);
+                query.setParameter("fromPrice", fromPrice);
+                query.setParameter("brands", brands);
+                query.setParameter("id", id);
+
+            query.setFirstResult(offset);
+
+            sortedGoodsList = query.getResultList();
+        }
+        else {
+            Query query = entityManager.createQuery("SELECT c from Goods c where c.category.id =: id AND" + " c.price >=: fromPrice AND c.price <=: toPrice AND c.brand IN (:brands) ORDER BY " + ord);
+                query.setParameter("fromPrice", fromPrice);
+                query.setParameter("brands", brands);
+                query.setParameter("toPrice", toPrice);
+                query.setParameter("id", id);
+
+            query.setFirstResult(offset);
+
+            sortedGoodsList = query.getResultList();
+        }
+
+
+
+
+            if (sortedGoodsList.size() > 8) {
+                sortedGoodsList = sortedGoodsList.subList(0, 8);
+            }
+
+            return sortedGoodsList;
+
+
+
     }
 
     @Override
-    public int countGoods(Long id) {
+    public int countGoods(Long id, Integer fromPrice, Integer toPrice) {
 
-        Query query = entityManager.createQuery("FROM Category as g LEFT join fetch g.goods where g.id=:id ");
+        if(fromPrice == null){
+            fromPrice = 0;
+        }
+            int count;
+
+        if (toPrice == null || toPrice == 0){
+            Query query = entityManager.createQuery("SELECT c from Goods c where c.category.id =: id AND" + " c.price >=: fromPrice");
+            query.setParameter("fromPrice", fromPrice);
+            query.setParameter("id", id);
+
+            count = query.getResultList().size();
+        }
+        else {
+            Query query = entityManager.createQuery("SELECT c from Goods c where c.category.id =: id AND" + " c.price >=: fromPrice  AND c.price <=: toPrice");
+            query.setParameter("fromPrice", fromPrice);
+            query.setParameter("toPrice", toPrice);
+            query.setParameter("id", id);
+
+            count = query.getResultList().size();
+        }
+
+        return count;
+    }
+
+    @Override
+    public List<String> getBrandsByCategoryId(Long id) {
+        Query query = entityManager.createQuery("SELECT DISTINCT c.brand FROM Goods c where c.category.id =: id");
         query.setParameter("id", id);
-
-
-        return query.getResultList().size();
+        return  query.getResultList();
     }
 
 

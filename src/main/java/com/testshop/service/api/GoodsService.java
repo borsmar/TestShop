@@ -9,7 +9,7 @@ public interface GoodsService {
 
     List<GoodsDto> getAll(Long id);
 
-    List<GoodsDto> sortByPrice(Long id, Integer offset, String sort);
+    List<GoodsDto> sortByPrice(Long id, Integer offset, String sort, Integer fromPrice, Integer toPrice, String brands);
 
     GoodsDto getById(Long id);
 
@@ -21,7 +21,9 @@ public interface GoodsService {
 
     Long getCategoryId(Long gooId);
 
-    int countPagesByCategory(Long id);
+    int countPagesByCategory(Long id, Integer fromPrice, Integer toPrice);
+
+    List<String> getBrandsByCategoryId(Long id);
 
 
 }

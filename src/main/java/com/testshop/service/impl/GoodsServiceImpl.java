@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.jms.JMSException;
+import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 @Service
@@ -41,18 +42,19 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsDtos;
     }
 
+    @Override
+    @Transactional
+    public List<String> getBrandsByCategoryId(Long id) {
+
+        return  goodsDAO.getBrandsByCategoryId(id);
+    }
+
 
     @Override
     @Transactional
-    public List<GoodsDto> sortByPrice(Long id, Integer offset, String sort) {
+    public List<GoodsDto> sortByPrice(Long id, Integer offset, String sort, Integer fromPrice, Integer toPrice, String brands){
 
 
-
-//        if(offset == null || offset == 1) {
-//            offset = 0;
-//        } else {
-//            offset= (offset*10);
-//        }
 
         if(offset == null || offset == 1) {
             offset = 0;
@@ -60,7 +62,9 @@ public class GoodsServiceImpl implements GoodsService {
             offset= (offset-1)*8;
         }
 
-        List<Goods> goodsList = goodsDAO.sortByPrice(id, offset, sort);
+        List<String> brandsList = List.of(brands.split(","));
+
+        List<Goods> goodsList = goodsDAO.sortByPrice(id, offset, sort, fromPrice, toPrice, brandsList);
         List<GoodsDto> goodsDtos = new ArrayList<>();
         for(Goods goods : goodsList){
             GoodsDto goodsDto = convertGoodsToDto(goods);
@@ -69,6 +73,21 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsDtos;
     }
 
+    @Override
+    @Transactional
+    public int countPagesByCategory(Long id, Integer fromPrice, Integer toPrice){
+
+        int count = goodsDAO.countGoods(id, fromPrice, toPrice);
+
+
+
+
+        if(count % 8 != 0){
+            return (count/8)+1;
+        }
+        else return count/8;
+
+    }
 
 
     @Override
@@ -110,24 +129,7 @@ public class GoodsServiceImpl implements GoodsService {
         return category.getId();
     }
 
-    @Override
-    @Transactional
-    public int countPagesByCategory(Long id){
 
-        int count = goodsDAO.countGoods(id);
-
-
-//        if(count % 20 != 0){
-//            return (count/20)+1;
-//        }
-//        else return count/20;
-
-        if(count % 8 != 0){
-            return (count/8)+1;
-        }
-        else return count/8;
-
-    }
 
 
 

@@ -15,7 +15,9 @@ public interface GoodsDAO {
 
     void delete(Long id);
 
-    List<Goods> sortByPrice(Long id, Integer offset, String sort);
+    List<Goods> sortByPrice(Long id, Integer offset, String sort,Integer fromPrice, Integer toPrice, List<String> brands);
 
-     int countGoods(Long id);
+     int countGoods(Long id,Integer fromPrice, Integer toPrice);
+
+     List<String> getBrandsByCategoryId(Long id);
 }
