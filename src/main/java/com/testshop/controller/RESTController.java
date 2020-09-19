@@ -65,9 +65,9 @@ public class RESTController {
     }
 
     @GetMapping(value = "/categories/{id}/items/countPages")
-    public String countPages(@PathVariable("id") String id, @RequestParam String fromPrice,@RequestParam String toPrice){
+    public String countPages(@PathVariable("id") String id, @RequestParam String fromPrice,@RequestParam String toPrice, @RequestParam String brands){
 
-    return  ""+goodsService.countPagesByCategory(Long.parseLong(id), Integer.parseInt(fromPrice), Integer.parseInt(toPrice));
+    return  ""+goodsService.countPagesByCategory(Long.parseLong(id), Integer.parseInt(fromPrice), Integer.parseInt(toPrice), brands);
 
     }
 

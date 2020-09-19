@@ -75,9 +75,11 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     @Transactional
-    public int countPagesByCategory(Long id, Integer fromPrice, Integer toPrice){
+    public int countPagesByCategory(Long id, Integer fromPrice, Integer toPrice, String brands){
 
-        int count = goodsDAO.countGoods(id, fromPrice, toPrice);
+
+        List<String> brandsList = List.of(brands.split(","));
+        int count = goodsDAO.countGoods(id, fromPrice, toPrice,brandsList);
 
 
 

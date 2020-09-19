@@ -17,7 +17,7 @@ public interface GoodsDAO {
 
     List<Goods> sortByPrice(Long id, Integer offset, String sort,Integer fromPrice, Integer toPrice, List<String> brands);
 
-     int countGoods(Long id,Integer fromPrice, Integer toPrice);
+     int countGoods(Long id,Integer fromPrice, Integer toPrice, List<String> brands);
 
      List<String> getBrandsByCategoryId(Long id);
 }

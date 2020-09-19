@@ -21,7 +21,7 @@ public interface GoodsService {
 
     Long getCategoryId(Long gooId);
 
-    int countPagesByCategory(Long id, Integer fromPrice, Integer toPrice);
+    int countPagesByCategory(Long id, Integer fromPrice, Integer toPrice, String brands);
 
     List<String> getBrandsByCategoryId(Long id);
 

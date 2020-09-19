@@ -92,10 +92,6 @@ public class AddressServiceImpl implements AddressService {
         address.setApt(addressDto.getApt());
         address.setCustomers(addressDto.getCustomers());
 
-
-//        orders.setAddress(ordersDto.getAddress_id());
-//        orders.setCustomer_id(ordersDto.getCustomer().getId());
-
         return address;
     }
 

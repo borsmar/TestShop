@@ -96,7 +96,7 @@ public class GoodsDAOImpl implements GoodsDAO {
     }
 
     @Override
-    public int countGoods(Long id, Integer fromPrice, Integer toPrice) {
+    public int countGoods(Long id, Integer fromPrice, Integer toPrice, List<String> brands ) {
 
         if(fromPrice == null){
             fromPrice = 0;
@@ -104,15 +104,17 @@ public class GoodsDAOImpl implements GoodsDAO {
             int count;
 
         if (toPrice == null || toPrice == 0){
-            Query query = entityManager.createQuery("SELECT c from Goods c where c.category.id =: id AND" + " c.price >=: fromPrice");
+            Query query = entityManager.createQuery("SELECT c from Goods c where c.category.id =: id AND" + " c.price >=: fromPrice AND c.brand IN (:brands)");
             query.setParameter("fromPrice", fromPrice);
+            query.setParameter("brands", brands);
             query.setParameter("id", id);
 
             count = query.getResultList().size();
         }
         else {
-            Query query = entityManager.createQuery("SELECT c from Goods c where c.category.id =: id AND" + " c.price >=: fromPrice  AND c.price <=: toPrice");
+            Query query = entityManager.createQuery("SELECT c from Goods c where c.category.id =: id AND" + " c.price >=: fromPrice  AND c.price <=: toPrice AND c.brand IN (:brands)");
             query.setParameter("fromPrice", fromPrice);
+            query.setParameter("brands", brands);
             query.setParameter("toPrice", toPrice);
             query.setParameter("id", id);
 
