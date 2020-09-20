@@ -1,5 +1,5 @@
 function getBrands(id) {
-    let checked = '';
+    let checked='';
 
     $('input:checkbox:checked').each(function () {
         checked += ($(this).val());
@@ -44,6 +44,7 @@ function countPages(id, inputPrice, outputPrice, checked) {
                         brands: checked,
 
                     }),
+                    async: false,
                     success: function (data) {
                         let Pages = ('');
 
@@ -142,6 +143,7 @@ function showBrands(id) {
         dataType: 'json',
         contentType: 'application/json',
         mimeType: 'application/json',
+        async: false,
         success: function (data) {
 
            let checkboxes = ('');
@@ -441,3 +443,34 @@ function dropdownItemClick() {
     getSortedItems(id,sort,page,inputPrice,outputPrice,checked);
 }
 
+function pageOnLoad(){
+    let id = $('#hid').val();
+    showBrands(id);
+    document.getElementById('Check1').onclick = function() {
+        if(document.getElementById('Check1').checked) {
+            localStorage.setItem('Check1', "true");
+        } else {
+            localStorage.setItem('Check1', "false");
+        }
+    }
+    if (localStorage.getItem('Check1') == "true") {
+        document.getElementById("Check1").setAttribute('checked','checked');
+    }
+    let sort = $('#priceMenu').val();
+    let checked = getBrands(id);
+    let inputPrice = 0;
+    let outputPrice = 0;
+    if($('#inputEmail4').val() !== ""){
+        inputPrice = $('#inputEmail4').val();
+    }
+    if($('#inputEmail5').val() !== ""){
+        outputPrice = $('#inputEmail5').val();
+    }
+    countPages(id, inputPrice, outputPrice, checked);
+
+    let page = $('.active').find(".sp").text();
+
+    getSortedItems(id,sort,page,inputPrice,outputPrice,checked);
+
+
+}
