@@ -73,7 +73,7 @@ public class OrdersServiceImpl implements OrdersService {
         ordersDto.setOrderStatus(orders.getOrderStatus());
         ordersDto.setGoods(orders.getGoods());
         ordersDto.setAddress_id(orders.getAddress().getId());
-        ordersDto.setCustomer_id(orders.getCustomer().getId());
+      //  ordersDto.setCustomer_id(orders.getUser().getId());
 
         return ordersDto;
     }

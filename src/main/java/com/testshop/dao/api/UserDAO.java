@@ -1,10 +1,21 @@
 package com.testshop.dao.api;
 
-import com.testshop.model.login.Login;
-import com.testshop.model.login.User;
+import com.testshop.model.Category;
+import com.testshop.model.User;
+
+import java.util.List;
 
 public interface UserDAO {
-    void register(User user);
 
-    User validateUser(Login login);
+    User add(User user);
+
+    List<User> getAll();
+
+    User getById(Long id);
+
+    void update(User user);
+
+    void delete(Long id);
+
+    User findByUsername(String username);
 }

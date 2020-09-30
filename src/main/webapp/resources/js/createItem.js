@@ -18,7 +18,7 @@ function createItem() {
         headers: {"X-CSRF-TOKEN": token},
         //  dataType: 'json',
           contentType: 'application/json',
-         // mimeType: 'application/json',
+          mimeType: 'application/json',
         data: JSON.stringify(goodsDto) ,
         success: function () {
 

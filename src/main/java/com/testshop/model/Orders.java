@@ -38,9 +38,9 @@ public class Orders {
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+  //  @ManyToOne
+   // @JoinColumn(name = "user_id")
+  //  private User user;
 
     @Override
     public String toString() {
@@ -52,7 +52,7 @@ public class Orders {
                 ", orderStatus='" + orderStatus + '\'' +
                 ", goods=" + goods +
                 ", address=" + address +
-                ", customer=" + customer +
+           //     ", user=" + user +
                 '}';
     }
 

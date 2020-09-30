@@ -72,7 +72,7 @@
             <a href="#" class="list-group-item active waves-effect">
                 <i class="fa fa-pie-chart mr-3"></i>Dashboard
             </a>
-            <a href="#" class="list-group-item waves-effect">
+            <a href="${pageContext.request.contextPath}/profile/" class="list-group-item waves-effect">
                 <i class="fa fa-user mr-3"></i>Profile
             </a>
             <a href="#" class="list-group-item waves-effect">

@@ -4,11 +4,12 @@ import com.testshop.model.Goods;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class OrdersDto {
+public class OrdersDto implements Serializable {
     private Long id;
     private String paymentType;
     private String deliveryType;

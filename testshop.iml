@@ -9,7 +9,9 @@
           <factory-entry name="Entities" value="abb1cbe0-e9e7-4488-aeb6-1dbdb252f033" />
           <factory-entry name="testshop" />
         </datasource-mapping>
-        <naming-strategy-map />
+        <naming-strategy-map>
+          <unit-entry name="Entities" />
+        </naming-strategy-map>
       </configuration>
     </facet>
   </component>

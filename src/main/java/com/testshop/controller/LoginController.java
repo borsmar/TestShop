@@ -1,7 +1,7 @@
 package com.testshop.controller;
 
-import com.testshop.model.login.Login;
-import com.testshop.model.login.User;
+import com.testshop.model.User;
+import org.springframework.ui.Model;
 import com.testshop.service.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,7 +18,23 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
+
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    public String registration(Model model) {
+        model.addAttribute("userForm", new User());
+
+        return "registration";
+    }
+
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public String registration(@ModelAttribute("userForm") User userForm, Model model) {
+
+
+        userService.add(userForm);
+
+        return "redirect:/index";
+    }
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public ModelAndView welcomePage() {
@@ -32,7 +48,6 @@ public class LoginController {
                                   @RequestParam(value = "logout", required = false) String logout) {
 
         ModelAndView model = new ModelAndView();
-        model.addObject("login", new Login());
         if (error != null) {
             model.addObject("error", "Invalid Credentials provided.");
         }
@@ -54,7 +69,7 @@ public class LoginController {
         return "redirect:/index?logout";
     }
 
-    //
+
     @RequestMapping(value = "/accessDenied", method = RequestMethod.GET)
     public ModelAndView accesssDenied() {
         ModelAndView model = new ModelAndView();
@@ -63,10 +78,4 @@ public class LoginController {
         return model;
     }
 
-    @PostMapping("/login")
-    public ModelAndView filter(@ModelAttribute("user") User user) {
-        ModelAndView model = new ModelAndView("addGoods");
-        //User user = userService.validateUser(login);
-        return model;
-    }
 }

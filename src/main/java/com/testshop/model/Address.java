@@ -1,5 +1,6 @@
 package com.testshop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,8 +20,9 @@ public class Address {
     @OneToMany(mappedBy = "address", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Orders> orders;
 
-    @ManyToMany
-    List<Customer> customers;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnore List<User> users;
 
     @Column
     String state;
@@ -45,7 +47,7 @@ public class Address {
         return "Address{" +
                 "id=" + id +
                 ", orders=" + orders +
-                ", customers=" + customers +
+                ", users=" + users +
                 ", state='" + state + '\'' +
                 ", city='" + city + '\'' +
                 ", ZipCode='" + ZipCode + '\'' +

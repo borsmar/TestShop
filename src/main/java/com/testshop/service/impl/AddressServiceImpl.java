@@ -76,7 +76,7 @@ public class AddressServiceImpl implements AddressService {
         addressDto.setStreet(address.getStreet());
         addressDto.setBuilding(address.getBuilding());
         addressDto.setApt(address.getApt());
-        addressDto.setCustomers(address.getCustomers());
+        addressDto.setUsers(address.getUsers());
 
         return addressDto;
     }
@@ -90,7 +90,7 @@ public class AddressServiceImpl implements AddressService {
         address.setStreet(addressDto.getStreet());
         address.setBuilding(addressDto.getBuilding());
         address.setApt(addressDto.getApt());
-        address.setCustomers(addressDto.getCustomers());
+        address.setUsers(addressDto.getUsers());
 
         return address;
     }

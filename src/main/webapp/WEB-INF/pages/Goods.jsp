@@ -10,6 +10,7 @@
     <script src="${pageContext.request.contextPath}/resources/js/GoodsPage.js"></script>
 
 
+
     <link href="${pageContext.request.contextPath}/resources/css/my.css" rel="stylesheet">
     <link rel="icon" href="${pageContext.request.contextPath}/resources/img/mdb-favicon.ico" type="image/x-icon">
     <!-- Font Awesome -->
@@ -184,11 +185,11 @@ background-repeat: no-repeat; background-size: cover; ">
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label>Min</label>
-                                        <input type="number" class="form-control" id="inputEmail4" placeholder="$0">
+                                        <input type="number" class="form-control" id="inputEmail4"  placeholder="$0">
                                     </div>
                                     <div class="form-group col-md-6 text-right">
                                         <label>Max</label>
-                                        <input type="number" class="form-control" id="inputEmail5" placeholder="$1,0000">
+                                        <input type="number" class="form-control" id="inputEmail5" onchange="localStorage.setItem('inputEmail5', $('#inputEmail5').val())" placeholder="$1,0000">
                                     </div>
                                 </div>
                             </div> <!-- card-body.// -->
@@ -263,9 +264,9 @@ background-repeat: no-repeat; background-size: cover; ">
                             Price: Low to High
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" onclick="$('#priceMenu').val('price_asc');dropdownItemClick(); $('#navbarDropdownMenuLink').text('Price: Low to High')" >Price: Low to High</a>
-                            <a class="dropdown-item " onclick="$('#priceMenu').val('price_desc'); dropdownItemClick();$('#navbarDropdownMenuLink').text('Price: High to Low')">Price: High to Low</a>
-                            <a class="dropdown-item" onclick="$('#priceMenu').val('newer_first');dropdownItemClick(); $('#navbarDropdownMenuLink').text('New')" >New</a>
+                            <a class="dropdown-item"  onclick="$('#priceMenu').val('price_asc');dropdownItemClick(); $('#navbarDropdownMenuLink').text('Price: Low to High');localStorage.setItem('priceMenu', 'price_asc');localStorage.setItem('navbarDropdownMenuLink','Price: Low to High');" >Price: Low to High</a>
+                            <a class="dropdown-item "  onclick="$('#priceMenu').val('price_desc'); dropdownItemClick();$('#navbarDropdownMenuLink').text('Price: High to Low');localStorage.setItem('priceMenu', 'price_desc');localStorage.setItem('navbarDropdownMenuLink','Price: High to Low')">Price: High to Low</a>
+                            <a class="dropdown-item"  onclick="$('#priceMenu').val('newer_first');dropdownItemClick(); $('#navbarDropdownMenuLink').text('New');localStorage.setItem('priceMenu', 'newer_first');localStorage.setItem('navbarDropdownMenuLink','New')" >New</a>
 
                             <input id="priceMenu" type="hidden" value="price_asc">
                         </div>
@@ -337,7 +338,6 @@ background-repeat: no-repeat; background-size: cover; ">
 
 </body>
 <script type="text/javascript">
-    // $(document).ready(CategoryClick($('#hid').val()));
     $(document).ready(pageOnLoad());
 </script>
 

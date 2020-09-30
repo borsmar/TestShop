@@ -1,27 +1,29 @@
 package com.testshop.dto;
 
-import com.sun.istack.NotNull;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.testshop.model.Address;
+import com.testshop.model.Orders;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
+import javax.persistence.Column;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 @Data
-public class UserDto {
-    @NotNull
-    @NotEmpty
-    private String firstName;
+@NoArgsConstructor
+public class UserDto implements Serializable {
 
-    @NotNull
-    @NotEmpty
-    private String lastName;
-
-    @NotNull
-    @NotEmpty
-    private String password;
-    private String matchingPassword;
-
-    @NotNull
-    @NotEmpty
+    private Long id;
+    private String FirstName;
+    private String SurName;
+    private String Password;
+    private String DateOfBirth;
+    private String username;
+  //  private List<OrdersDto> ordersDtos;
+   // private List<Address> addresses;
+    private Long role_id;
     private String email;
 
 }

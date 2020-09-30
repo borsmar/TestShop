@@ -2,12 +2,18 @@ package com.testshop.controller;
 
 import com.testshop.dto.CategoryDto;
 import com.testshop.dto.GoodsDto;
+import com.testshop.dto.UserDto;
+import com.testshop.model.User;
 import com.testshop.service.api.CategoryService;
 import com.testshop.service.api.GoodsService;
+import com.testshop.service.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.faces.annotation.RequestParameterMap;
 import javax.jms.JMSException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -16,6 +22,8 @@ import java.util.List;
 @RequestMapping("/api")
 public class RESTController {
 
+    @Autowired
+    UserService userService;
     @Autowired
     private GoodsService goodsService;
     @Autowired
@@ -83,10 +91,38 @@ public class RESTController {
 
         goodsDto.setCategory_id(Long.parseLong(id));
 
-
         goodsService.add(goodsDto);
     }
 
+    @GetMapping(value = "/currentUser")
+    public UserDto getCurrentUser(){
+       return userService.findByUsername(userService.GetCurrentUsername());
+    }
+
+
+    @GetMapping(value = "/currentUser/{id}")
+    public ResponseEntity<String> updateCurrentUser(@PathVariable("id") String id, @RequestParam String firstName, @RequestParam String surName) throws JMSException {
+
+        UserDto userDto = new UserDto();
+
+        userDto.setId(Long.parseLong(id));
+        userDto.setFirstName(firstName);
+        userDto.setSurName(surName);
+
+        if(userService.getById(Long.parseLong(id)) == null){
+            return new ResponseEntity<String>("Account not found", HttpStatus.NOT_FOUND);
+        }
+        else {
+            userService.update(userDto);
+            return new ResponseEntity<String>("Account successfully updated",HttpStatus.OK);
+        }
+       // UserDto userDto = new UserDto();
+
+        // userDto.setId(Long.parseLong(id));
+       // userDto.setFirstName(firstName);
+
+
+    }
 
 
     @GetMapping(value = "/")
