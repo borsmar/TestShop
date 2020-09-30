@@ -16,14 +16,14 @@ import java.util.Set;
 public class UserDto implements Serializable {
 
     private Long id;
-    private String FirstName;
-    private String SurName;
-    private String Password;
-    private String DateOfBirth;
+    private String firstName;
+    private String surname;
+    private String password;
+    private String dateOfBirth;
     private String username;
   //  private List<OrdersDto> ordersDtos;
    // private List<Address> addresses;
-    private Long role_id;
+    private Set<RolesDto> rolesDtos;
     private String email;
 
 }

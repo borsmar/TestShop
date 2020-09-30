@@ -23,13 +23,13 @@ public class User implements Serializable {
     Long id;
 
     @Column
-    String FirstName;
+    String firstName;
 
     @Column
-    String SurName;
+    String surname;
 
     @Column
-    String DateOfBirth;
+    String dateOfBirth;
 
     @Column
     String username;
@@ -38,7 +38,7 @@ public class User implements Serializable {
     String password;
 
     @Column
-    String Email;
+    String email;
 
 
    // @ManyToMany(fetch = FetchType.LAZY)
@@ -52,22 +52,26 @@ public class User implements Serializable {
 //    @ManyToMany(fetch = FetchType.LAZY)
 //    Set<Role> roles;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    Role role;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    Set<Role> roles;
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", FirstName='" + FirstName + '\'' +
-                ", SurName='" + SurName + '\'' +
-                ", DateOfBirth='" + DateOfBirth + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", surname='" + surname + '\'' +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-              //  ", addresses=" + addresses +
-             //   ", orders=" + orders +
-                ", role=" + role +
+                ", email='" + email + '\'' +
                 '}';
     }
 

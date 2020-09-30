@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
     public void add(User user) {
 
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-       // user.setRoles(new HashSet<>(roleDAO.getAll()));
+        // user.setRoles(new HashSet<>(roleDAO.getAll()));
         userDAO.add(user);
 
     }
@@ -89,13 +89,12 @@ public class UserServiceImpl implements UserService {
         String username;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
-             username = ((UserDetails)principal).getUsername();
+            username = ((UserDetails) principal).getUsername();
         } else {
-             username = principal.toString();
+            username = principal.toString();
         }
         return username;
     }
-
 
 
     public static UserDto convertUserToDto(User user) {
@@ -104,49 +103,45 @@ public class UserServiceImpl implements UserService {
         userDto.setId(user.getId());
         userDto.setFirstName(user.getFirstName());
         userDto.setPassword(user.getPassword());
-        userDto.setSurName(user.getSurName());
+        userDto.setSurname(user.getSurname());
         userDto.setDateOfBirth(user.getDateOfBirth());
         userDto.setUsername(user.getUsername());
-        userDto.setEmail(user.getEmail() );
+        userDto.setEmail(user.getEmail());
 
 
-       // userDto.setOrders(user.getOrders());
+        // userDto.setOrders(user.getOrders());
         //userDto.setAddresses(user.getAddresses());
 
-//        Set<RolesDto> rolesDtos = new HashSet<>();
+        Set<RolesDto> rolesDtos = new HashSet<>();
 
-//        for(Role role : user.getRoles() ){
-//            rolesDtos.add(convertRolesToDto(role));
-//        }
+        for (Role role : user.getRoles()) {
+            rolesDtos.add(convertRolesToDto(role));
+        }
 
-        userDto.setRole_id(user.getRole().getId());
+        userDto.setRolesDtos(rolesDtos);
+
+//        userDto.setRole_id(user.getRole().getId());
 
         return userDto;
     }
 
-    public static RolesDto convertRolesToDto(Role role){
+    public static RolesDto convertRolesToDto(Role role) {
         RolesDto rolesDto = new RolesDto();
         rolesDto.setId(role.getId());
         rolesDto.setName(role.getName());
 
-        Set<UserDto> usersDtos = new HashSet<>();
-
-        for(User users : role.getUsers()){
-            usersDtos.add(convertUserToDto(users));
-        }
-        rolesDto.setUsersDtos(usersDtos);
 
         return rolesDto;
 
     }
 
-    public Role convertDtoToRole(Role role, RolesDto rolesDto){
+    public Role convertDtoToRole(Role role, RolesDto rolesDto) {
 
         role.setId(rolesDto.getId());
         role.setName(rolesDto.getName());
 
         Set<User> userSet = new HashSet<>();
-        for(UserDto userDto : rolesDto.getUsersDtos() ){
+        for (UserDto userDto : rolesDto.getUsersDtos()) {
             userSet.add(convertDtoToUser(new User(), userDto));
         }
 
@@ -161,20 +156,20 @@ public class UserServiceImpl implements UserService {
 
 
         user.setFirstName(userDto.getFirstName());
-        user.setSurName(userDto.getSurName());
+        user.setSurname(userDto.getSurname());
 //        user.setPassword(userDto.getPassword());
 //        user.setDateOfBirth(userDto.getDateOfBirth());
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
-      //  user.setOrders(userDto.getOrders());
-       // user.setAddresses(userDto.getAddresses());
+        //  user.setOrders(userDto.getOrders());
+        // user.setAddresses(userDto.getAddresses());
 
-     //   Set<Role> roleSet = new HashSet<>();
-      //  for(RolesDto roleDto : userDto.getRolesDtos() ){
-      //      roleSet.add(convertDtoToRole(new Role(), roleDto));
-     //   }
+        Set<Role> roleSet = new HashSet<>();
+        for (RolesDto roleDto : userDto.getRolesDtos()) {
+            roleSet.add(convertDtoToRole(new Role(), roleDto));
+        }
 
-      //  user.setRoles(roleSet);
+        user.setRoles(roleSet);
 
 //        orders.setAddress(ordersDto.getAddress_id());
 //        orders.setCustomer_id(ordersDto.getCustomer().getId());

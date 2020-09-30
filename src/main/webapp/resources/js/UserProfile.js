@@ -1,40 +1,40 @@
 function getProfile() {
 
-        $.ajax({
-            url: 'http://localhost:8080/api/currentUser',
-            type: 'GET',
-            dataType: 'json',
-            mimeType: 'application/json',
-            async: false,
-            success: function (data) {
+    $.ajax({
+        url: 'http://localhost:8080/api/current_user',
+        type: 'GET',
+        dataType: 'json',
+        mimeType: 'application/json',
+        async: false,
+        success: function (data) {
 
-                if (data.role_id === 1) {
-                    $('#badge').text('administrator');
-                }
-
-                $('#username').text('@' + data.username);
-                $('#first').val(data.firstName);
-                $('#sur').val(data.surName);
-                $('#mail').val(data.email);
-                $('#user').val(data.username);
-                $('#UserId').val(data.id);
+            if (data.rolesDtos[0]['id'] === 1) {
+                $('#badge').text('administrator');
             }
-        });
+
+            $('#username').text('@' + data.username);
+            $('#first').val(data.firstName);
+            $('#sur').val(data.surname);
+            $('#mail').val(data.email);
+            $('#user').val(data.username);
+            $('#UserId').val(data.id);
+        }
+    });
 
 }
 
-function update(){
+function update() {
 
-    let id =$('#UserId').val();
+    let id = $('#UserId').val();
 
     var token = $("meta[name='_csrf']").attr("content");
 
     let userDto = {
-      //  'id': $('#UserId').val(),
+        'id': 1,
 
         'firstName': $("#first").val(),
 
-        'surName': $("#sur").val(),
+        'surname': $("#sur").val(),
 
         'username': $('#user').val(),
 
@@ -43,24 +43,21 @@ function update(){
 
 
     $.ajax({
-        url: 'http://localhost:8080/api/currentUser/'+id,
-        type: 'GET',
-        headers: {
-            "X-CSRF-TOKEN": token,
+        url: 'http://localhost:8080/api/current_user/',
+        type: 'PATCH',
+        headers:{
+            "X-CSRF-TOKEN": token
         },
 
-       // dataType: 'json',
-        contentType: 'json',
-       // mimeType: 'application/json',
-       // data: JSON.stringify(userDto) ,
-        data: ({
-            'firstName':  $("#first").val(),
-            'surName' : $('#sur').val()
-        }),
+        // dataType: 'json',
+        contentType: 'application/json',
+        mimeType: 'application/json',
+        data: JSON.stringify(userDto),
         success: function (data) {
 
             getProfile();
 
-    }});
+        }
+    });
 
 }
