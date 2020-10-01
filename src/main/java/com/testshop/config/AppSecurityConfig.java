@@ -34,15 +34,6 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder authenticationMgr) throws Exception {
-//        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-//        authenticationMgr.inMemoryAuthentication()
-//                .withUser(ApplicationConstant.LOGIN_DOCTOR)
-//                .password(encoder.encode(ApplicationConstant.PASSWORD))
-//                .roles("ADMIN", "USER")
-//                .and()
-//                .withUser(ApplicationConstant.LOGIN_NURSE)
-//                .password(encoder.encode(ApplicationConstant.PASSWORD))
-//                .roles("USER");
         authenticationMgr.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 
@@ -72,7 +63,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/GoodsManager/")
                 // указываем URL при неудачном логине
-                .failureUrl("/login?error")
+                .failureUrl("/index?error")
                 // Указываем параметры логина и пароля с формы логина
                 .usernameParameter("username")
                 .passwordParameter("password")
@@ -85,7 +76,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 // указываем URL логаута
                 .logoutUrl("/logout")
                 // указываем URL при удачном логауте
-                .logoutSuccessUrl("/login?logout")
+                .logoutSuccessUrl("/index?logout")
                 // делаем не валидной текущую сессию
                 .invalidateHttpSession(true);
     }

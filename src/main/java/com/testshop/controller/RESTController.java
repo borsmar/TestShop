@@ -9,6 +9,7 @@ import com.testshop.service.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,6 +27,8 @@ public class RESTController {
     private GoodsService goodsService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @GetMapping(value = "/categories")
     public List<CategoryDto> getAllCategoryDtos() throws JMSException {
@@ -96,9 +99,16 @@ public class RESTController {
         return userService.findByUsername(userService.GetCurrentUsername());
     }
 
-    @PatchMapping(value = "/current_user")
-    public ResponseEntity<String> updateCurrentUser(@RequestBody UserDto userDto) throws JMSException {
-        String id = "1";
+    @GetMapping(value = "/updateuser")
+    public void updateUserPassword(@RequestParam String username, @RequestParam String password, @RequestParam String currentPassword) {
+        userService.changeUserPassword(userService.findByUsername(username), password, currentPassword);
+    }
+
+    @PatchMapping(value = "/current_user/{id}")
+    public ResponseEntity<String> updateCurrentUser(@PathVariable String id,@RequestBody UserDto userDto) throws JMSException {
+
+
+        userDto.setId(Long.parseLong(id));
 
         if (userService.getById(Long.parseLong(id)) == null) {
             return new ResponseEntity<String>("Account not found", HttpStatus.NOT_FOUND);

@@ -69,12 +69,12 @@
 <body class="text-center">
 
 
-<%--action="<c:url value='/login' />"--%>
 
 <form method='POST' name='login' class="form-signin" action="${pageContext.request.contextPath}/login">
     <img class="mb-4" src="https://www.freelogodesign.org/file/app/client/thumb/600ebf37-f8bc-4710-addd-a16f17124f63_200x200.png?1597678551852" alt="" width="72" height="72">
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <h2 class="h3 mb-3 font-weight-normal">${message}</h2>
     <h2 class="h3 mb-3 font-weight-normal">${error}</h2>
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     <label for="inputLogin" class="sr-only">Username</label>
     <div class="input-group form-group">
     <input type="text" id="inputLogin" class="form-control" placeholder="Username" name="username" required autofocus>

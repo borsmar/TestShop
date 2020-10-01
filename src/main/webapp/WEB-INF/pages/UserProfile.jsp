@@ -156,7 +156,7 @@
                                                         <div class="col">
                                                             <div class="form-group">
                                                                 <label>Current Password</label>
-                                                                <input class="form-control" type="password" placeholder="••••••">
+                                                                <input id="current" class="form-control" type="password" placeholder="••••••">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -164,7 +164,7 @@
                                                         <div class="col">
                                                             <div class="form-group">
                                                                 <label>New Password</label>
-                                                                <input class="form-control" type="password" placeholder="••••••">
+                                                                <input id="new" class="form-control" type="password" placeholder="••••••">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -217,10 +217,12 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <div class="px-xl-3">
-                                <button class="btn btn-block btn-secondary">
+                                <form action="<c:url value="/logout" />">
+                                    <button  class="btn btn-block btn-secondary">
                                     <i class="fa fa-sign-out"></i>
                                     <span>Logout</span>
                                 </button>
+                                </form>
                             </div>
                         </div>
                     </div>

@@ -12,6 +12,7 @@ function getProfile() {
                 $('#badge').text('administrator');
             }
 
+            $('#name').text(data.firstName +" "+ data.surname);
             $('#username').text('@' + data.username);
             $('#first').val(data.firstName);
             $('#sur').val(data.surname);
@@ -25,12 +26,13 @@ function getProfile() {
 
 function update() {
 
+
+
     let id = $('#UserId').val();
 
     var token = $("meta[name='_csrf']").attr("content");
 
     let userDto = {
-        'id': 1,
 
         'firstName': $("#first").val(),
 
@@ -43,17 +45,42 @@ function update() {
 
 
     $.ajax({
-        url: 'http://localhost:8080/api/current_user/',
+        url: 'http://localhost:8080/api/current_user/'+id,
         type: 'PATCH',
         headers:{
             "X-CSRF-TOKEN": token
         },
 
-        // dataType: 'json',
         contentType: 'application/json',
         mimeType: 'application/json',
         data: JSON.stringify(userDto),
-        success: function (data) {
+        success: function () {
+
+            getProfile();
+
+        }
+    });
+
+}
+
+function changePassword() {
+    let token = $("meta[name='_csrf']").attr("content");
+
+    let currentPassword = $('#current').val();
+    let newPassword = $('#new').val();
+    let username = $('#user').val();
+    $.ajax({
+        url: 'http://localhost:8080/api/updateuser',
+        type: 'GET',
+        headers:{
+            "X-CSRF-TOKEN": token
+        },
+        data: ({
+            username: username,
+            password: newPassword,
+            currentPassword: currentPassword,
+        }),
+        success: function () {
 
             getProfile();
 

@@ -12,6 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -152,7 +153,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public User convertDtoToUser(User user, UserDto userDto) {
-        user.setId(userDto.getId());
+//        user.setId(userDto.getId());
 
 
         user.setFirstName(userDto.getFirstName());
@@ -164,17 +165,31 @@ public class UserServiceImpl implements UserService {
         //  user.setOrders(userDto.getOrders());
         // user.setAddresses(userDto.getAddresses());
 
-        Set<Role> roleSet = new HashSet<>();
-        for (RolesDto roleDto : userDto.getRolesDtos()) {
-            roleSet.add(convertDtoToRole(new Role(), roleDto));
-        }
-
-        user.setRoles(roleSet);
+//        Set<Role> roleSet = new HashSet<>();
+//        for (RolesDto roleDto : userDto.getRolesDtos()) {
+//            roleSet.add(convertDtoToRole(new Role(), roleDto));
+//        }
+//
+//        user.setRoles(roleSet);
 
 //        orders.setAddress(ordersDto.getAddress_id());
 //        orders.setCustomer_id(ordersDto.getCustomer().getId());
 
         return user;
+    }
+
+    @Override
+    @Transactional
+    public void changeUserPassword(UserDto userDto, String password, String currentPassword) {
+
+
+        User user = userDAO.getById(userDto.getId());
+
+
+        if (bCryptPasswordEncoder.matches(currentPassword, user.getPassword())) {
+            user.setPassword(bCryptPasswordEncoder.encode(password));
+            userDAO.update(user);
+        }
     }
 
 }

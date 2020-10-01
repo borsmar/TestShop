@@ -23,5 +23,7 @@ public interface UserService {
 
     String GetCurrentUsername();
 
+    void changeUserPassword(UserDto userDto, String password, String currentPassword);
+
 
 }

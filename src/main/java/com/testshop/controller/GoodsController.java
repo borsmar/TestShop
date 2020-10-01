@@ -20,30 +20,17 @@ import java.util.List;
 public class GoodsController {
 
     Long id;
-    int page;
-    int var = 1;
-    String sort;
+
 
     @Autowired
     private GoodsService goodsService;
 
-    @Autowired
-    private CategoryService categoryService;
 
     @GetMapping(value = "/")
     public ModelAndView get(HttpServletRequest request) {
 
 
-//        List<GoodsDto> listGoods = goodsService.sortByPrice(id, page);
-
-//        List<CategoryDto> listCategories = categoryService.getAll();
-
         ModelAndView model = new ModelAndView("Goods");
-//        model.addObject("goods", listGoods);
-//        model.addObject("categories", listCategories);
-//        model.addObject("goodsDto", new GoodsDto());
-//        model.addObject("categoryDto", new CategoryDto());
-//        model.addObject("category", new Category());
         return model;
     }
 

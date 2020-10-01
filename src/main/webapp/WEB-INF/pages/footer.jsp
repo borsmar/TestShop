@@ -45,7 +45,7 @@
 
 
 <!-- jQuery -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<%--<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>--%>
 <!-- Bootstrap tooltips -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/popper.min.js"></script>
 <!-- Bootstrap core JavaScript -->

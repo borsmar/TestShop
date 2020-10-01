@@ -32,8 +32,8 @@ function countPages(id, inputPrice, outputPrice, checked) {
 
     let page = localStorage.getItem('page');
 
-    if(page === null || page === '0'){
-    page = 1;
+    if (page === null || page === '0') {
+        page = 1;
 
     }
 
@@ -51,7 +51,7 @@ function countPages(id, inputPrice, outputPrice, checked) {
         success: function (data) {
             let Pages = ('');
 
-        let firstPage = interval(page);
+            let firstPage = interval(page);
 
             if (data >= (firstPage + 4)) {
                 // Pages += ('<li id="li' + (1) + '" class="page-item active number" onclick="$(\'.page-item\').removeClass(\'active\'); $(this).addClass(\'active\')">');
@@ -61,9 +61,9 @@ function countPages(id, inputPrice, outputPrice, checked) {
                 // Pages += ('</li>');
 
                 for (let i = 0; i < 5; i++) {
-                    Pages += ('<li id="li' + (firstPage+i) + '" class="page-item  number" onclick="$(\'.page-item\').removeClass(\'active\'); $(this).addClass(\'active\')">');
-                    Pages += ('<a id="' + (firstPage+i) + '" onclick="getSortedItems(' + id + ',$(\'#priceMenu\').val(),$(\'#span\' + ' + (firstPage+i) + ').text(),' + inputPrice + ',' + outputPrice + ',getBrands(' + id + '))"  class="page-link" aria-label="Previous">');
-                    Pages += ('<span id="span' + (firstPage+i) + '" class="sp" aria-hidden="true">' + (firstPage+i) + '</span>');
+                    Pages += ('<li id="li' + (firstPage + i) + '" class="page-item  number" onclick="$(\'.page-item\').removeClass(\'active\'); $(this).addClass(\'active\')">');
+                    Pages += ('<a id="' + (firstPage + i) + '" onclick="getSortedItems(' + id + ',$(\'#priceMenu\').val(),$(\'#span\' + ' + (firstPage + i) + ').text(),' + inputPrice + ',' + outputPrice + ',getBrands(' + id + '))"  class="page-link" aria-label="Previous">');
+                    Pages += ('<span id="span' + (firstPage + i) + '" class="sp" aria-hidden="true">' + (firstPage + i) + '</span>');
                     Pages += ('</a>');
                     Pages += ('</li>');
                 }
@@ -75,11 +75,10 @@ function countPages(id, inputPrice, outputPrice, checked) {
                 // Pages += ('</li>');
 
 
-
-                for (let i = 0; i < data-firstPage+1; i++) {
-                    Pages += ('<li id="li' + (firstPage+i) + '" class="page-item number" onclick="$(\'.page-item\').removeClass(\'active\'); $(this).addClass(\'active\')">');
-                    Pages += ('<a id="' + (firstPage+i) + '" onclick="getSortedItems(' + id + ',$(\'#priceMenu\').val(),$(\'#span\' + ' + (firstPage+i) + ').text(),' + inputPrice + ',' + outputPrice + ',getBrands(' + id + '))"  class="page-link" aria-label="Previous">');
-                    Pages += ('<span id="span' + (firstPage+i) + '" class="sp" aria-hidden="true">' + (firstPage+i) + '</span>');
+                for (let i = 0; i < data - firstPage + 1; i++) {
+                    Pages += ('<li id="li' + (firstPage + i) + '" class="page-item number" onclick="$(\'.page-item\').removeClass(\'active\'); $(this).addClass(\'active\')">');
+                    Pages += ('<a id="' + (firstPage + i) + '" onclick="getSortedItems(' + id + ',$(\'#priceMenu\').val(),$(\'#span\' + ' + (firstPage + i) + ').text(),' + inputPrice + ',' + outputPrice + ',getBrands(' + id + '))"  class="page-link" aria-label="Previous">');
+                    Pages += ('<span id="span' + (firstPage + i) + '" class="sp" aria-hidden="true">' + (firstPage + i) + '</span>');
                     Pages += ('</a>');
                     Pages += ('</li>');
                 }
@@ -212,22 +211,22 @@ function CategoryClick(id) {
 
     let page = 1;
     let sort = $('#priceMenu').val();
-    let inputPrice=0;
-    let outputPrice=0;
+    let inputPrice = 0;
+    let outputPrice = 0;
     let checked = getBrands(id);
 
-     if ($('#inputEmail4').val() !== "") {
-          $('#inputEmail4').val('');
-     }
+    if ($('#inputEmail4').val() !== "") {
+        $('#inputEmail4').val('');
+    }
 
-     if ($('#inputEmail5').val() !== "") {
+    if ($('#inputEmail5').val() !== "") {
         $('#inputEmail5').val('');
-     }
+    }
 
     getSortedItems(id, sort, page, 0, 0, checked);
     countPages(id, 0, 0, checked);
 
-    $('#li'+ page).addClass('active');
+    $('#li' + page).addClass('active');
 
     PageClickListener();
 }
@@ -267,15 +266,14 @@ function RightArrowClick() {
             if (remain > 0 && remain <= 5) {
 
 
-
                 Pages += ('<li id="li' + (last + 1) + '" class="page-item active number" onclick="$(\'.page-item\').removeClass(\'active\'); $(this).addClass(\'active\')">');
                 Pages += ('<a id="' + (last + 1) + '" onclick="getSortedItems(' + id + ',$(\'#priceMenu\').val(),$(\'#span' + (last + 1) + '\').text(),' + inputPrice + ',' + outputPrice + ',getBrands(' + id + '))"  class="page-link" aria-label="Previous">');
                 Pages += ('<span id="span' + (last + 1) + '" class="sp" aria-hidden="true">' + (last + 1) + '</span>');
                 Pages += ('</a>');
                 Pages += ('</li>');
 
-                let a = last +1;
-                localStorage.setItem('page', ''+a);
+                let a = last + 1;
+                localStorage.setItem('page', '' + a);
 
                 getSortedItems(id, $('#priceMenu').val(), last + 1, inputPrice, outputPrice, checked);
 
@@ -302,8 +300,8 @@ function RightArrowClick() {
                 Pages += ('</li>');
 
 
-                let a = last +1;
-                localStorage.setItem('page', ''+a);
+                let a = last + 1;
+                localStorage.setItem('page', '' + a);
 
                 getSortedItems(id, $('#priceMenu').val(), last + 1, inputPrice, outputPrice, checked);
                 // showItems(id, last + 1);
@@ -379,8 +377,8 @@ function LeftArrowClick() {
                 Pages += ('</a>');
                 Pages += ('</li>');
 
-                let a = first -1;
-                localStorage.setItem('page', ''+a);
+                let a = first - 1;
+                localStorage.setItem('page', '' + a);
 
                 // $("#last").show();
                 $('.number').remove();
@@ -405,8 +403,8 @@ function LeftArrowClick() {
                 Pages += ('</a>');
                 Pages += ('</li>');
 
-                let a = first -1;
-                localStorage.setItem('page', ''+a);
+                let a = first - 1;
+                localStorage.setItem('page', '' + a);
 
                 // $("#last").show();
                 $('.number').remove();
@@ -440,7 +438,6 @@ function FilterSubmitButtonClick() {
     let outputPrice = 0;
 
 
-
     if ($('#inputEmail4').val() !== "") {
         inputPrice = $('#inputEmail4').val();
     }
@@ -450,13 +447,13 @@ function FilterSubmitButtonClick() {
 
     getSortedItems(id, sort, page, inputPrice, outputPrice, checked);
     countPages(id, inputPrice, outputPrice, checked);
-    $('#li'+ page).addClass('active');
+    $('#li' + page).addClass('active');
 
 }
 
 function dropdownItemClick() {
 
-     PageClickListener();
+    PageClickListener();
 
     let id = $('#hid').val();
     let page = 1;
@@ -474,8 +471,8 @@ function dropdownItemClick() {
 
     getSortedItems(id, sort, page, inputPrice, outputPrice, checked);
     countPages(id, inputPrice, outputPrice, checked);
-     localStorage.setItem('page', '1');
-    $('#li'+ page).addClass('active');
+    localStorage.setItem('page', '1');
+    $('#li' + page).addClass('active');
 }
 
 function pageOnLoad() {
@@ -483,10 +480,10 @@ function pageOnLoad() {
     let id = $('#hid').val();
     showBrands(id);
     let checked;
-    let page=1;
+    let page = 1;
 
 
-    if(localStorage.getItem('page') !== null){
+    if (localStorage.getItem('page') !== null) {
         page = localStorage.getItem('page');
     }
 
@@ -531,7 +528,7 @@ function pageOnLoad() {
 
         $('.page-item').removeClass('active');
 
-        $('#li'+ page).addClass('active');
+        $('#li' + page).addClass('active');
 
     }, 300);
 
@@ -549,10 +546,10 @@ function pageOnLoad() {
 
 }
 
-function PageClickListener(){
+function PageClickListener() {
     setTimeout(function () {
         document.querySelectorAll('.page-item').forEach(el => {
-            el.addEventListener('click', function() {
+            el.addEventListener('click', function () {
                 localStorage.setItem('page', $('.active').find(".sp").text());
             })
         });
@@ -560,14 +557,14 @@ function PageClickListener(){
     }, 400);
 }
 
-function interval(input){
+function interval(input) {
     let output;
-    if(input % 5 === 0){
-        input = input-1;
+    if (input % 5 === 0) {
+        input = input - 1;
     }
 
-    for(let i = input;; i-- ){
-        if(i % 5 === 0) {
+    for (let i = input; ; i--) {
+        if (i % 5 === 0) {
             output = i + 1;
             break;
         }

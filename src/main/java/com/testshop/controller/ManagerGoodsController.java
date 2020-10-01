@@ -43,8 +43,6 @@ public class ManagerGoodsController {
     }
 
 
-
-
     @PostMapping(value = "/add")
     public ModelAndView add(@ModelAttribute("goodsDto") GoodsDto goodsDto) throws JMSException {
         goodsDto.setCategory_id(id);
@@ -81,8 +79,6 @@ public class ManagerGoodsController {
         goodsService.deleteById(id);
         return new ModelAndView("redirect:/GoodsManager/?id=" + categoryId);
     }
-
-
 
 
 }
