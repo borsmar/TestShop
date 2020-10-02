@@ -75,24 +75,12 @@
                         <div class="card-body">
                             <div class="e-profile">
                                 <div class="row">
-                                    <div class="col-12 col-sm-auto mb-3">
-                                        <div class="mx-auto" style="width: 140px;">
-                                            <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
-                                                <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">140x140</span>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                                         <div class="text-center text-sm-left mb-2 mb-sm-0">
                                             <h4 id="name" class="pt-sm-2 pb-1 mb-0 text-nowrap"></h4>
                                             <p id="username" class="mb-0"></p>
                                             <div class="text-muted"><small>Last seen 2 hours ago</small></div>
-                                            <div class="mt-2">
-                                                <button class="btn btn-primary" type="button">
-                                                    <i class="fa fa-fw fa-camera"></i>
-                                                    <span>Change Photo</span>
-                                                </button>
-                                            </div>
+
                                         </div>
                                         <div class="text-center text-sm-right">
                                             <span id="badge" class="badge badge-secondary">user</span>
@@ -172,7 +160,7 @@
                                                         <div class="col">
                                                             <div class="form-group">
                                                                 <label>Confirm <span class="d-none d-xl-inline">Password</span></label>
-                                                                <input class="form-control" type="password" placeholder="••••••"></div>
+                                                                <input id="confirm" class="form-control" type="password" placeholder="••••••"></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -200,6 +188,9 @@
                                                 </div>
                                             </div>
                                             <div class="row">
+                                                <div class="col d-flex justify-content-begin">
+                                                    <button class="btn btn-primary" onclick="changePassword()" type="button">Save New Password</button>
+                                                </div>
                                                 <div class="col d-flex justify-content-end">
                                                     <button class="btn btn-primary" onclick="update()" type="button">Save Changes</button>
                                                 </div>

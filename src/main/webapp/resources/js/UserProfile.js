@@ -56,6 +56,7 @@ function update() {
         data: JSON.stringify(userDto),
         success: function () {
 
+
             getProfile();
 
         }
@@ -69,22 +70,28 @@ function changePassword() {
     let currentPassword = $('#current').val();
     let newPassword = $('#new').val();
     let username = $('#user').val();
-    $.ajax({
-        url: 'http://localhost:8080/api/updateuser',
-        type: 'GET',
-        headers:{
-            "X-CSRF-TOKEN": token
-        },
-        data: ({
-            username: username,
-            password: newPassword,
-            currentPassword: currentPassword,
-        }),
-        success: function () {
+    let confirm = $('#confirm').val();
 
-            getProfile();
+    if(newPassword === confirm) {
+        $.ajax({
+            url: 'http://localhost:8080/api/updateuser',
+            type: 'GET',
+            headers: {
+                "X-CSRF-TOKEN": token
+            },
+            data: ({
+                username: username,
+                password: newPassword,
+                currentPassword: currentPassword,
+            }),
+            success: function () {
 
-        }
-    });
+                getProfile();
 
+            }
+        });
+    }
+    else {
+        alert('Passwords are different, try again');
+    }
 }
