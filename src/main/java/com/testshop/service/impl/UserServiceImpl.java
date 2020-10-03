@@ -61,8 +61,17 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void add(User user) {
 
+        Set<Role> set = new HashSet<>();
+        Set<User> userSet = new HashSet<>();
+        set.add(roleDAO.getById(Long.parseLong("2")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        // user.setRoles(new HashSet<>(roleDAO.getAll()));
+        user.setRoles(set);
+        userSet.add(user);
+        Role role = roleDAO.getById(Long.parseLong("2"));
+        role.setUsers(userSet);
+
+        roleDAO.update(role);
+
         userDAO.add(user);
 
     }
