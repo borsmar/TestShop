@@ -1,8 +1,10 @@
 package com.testshop.controller;
 
+import com.testshop.dto.AddressDto;
 import com.testshop.dto.CategoryDto;
 import com.testshop.dto.GoodsDto;
 import com.testshop.dto.UserDto;
+import com.testshop.service.api.AddressService;
 import com.testshop.service.api.CategoryService;
 import com.testshop.service.api.GoodsService;
 import com.testshop.service.api.UserService;
@@ -29,6 +31,8 @@ public class RESTController {
     private CategoryService categoryService;
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    AddressService addressService;
 
     @GetMapping(value = "/categories")
     public List<CategoryDto> getAllCategoryDtos() throws JMSException {
@@ -104,6 +108,9 @@ public class RESTController {
         userService.changeUserPassword(userService.findByUsername(username), password, currentPassword);
     }
 
+
+
+
     @PatchMapping(value = "/current_user/{id}")
     public ResponseEntity<String> updateCurrentUser(@PathVariable String id,@RequestBody UserDto userDto) throws JMSException {
 
@@ -124,6 +131,22 @@ public class RESTController {
 
     }
 
+    @DeleteMapping(value = "/current_user/address/{id}")
+    public void deleteAddress(@PathVariable String id,@RequestBody UserDto userDto) throws JMSException {
+            userService.deleteAddress(userDto, id);
+    }
+
+    @PatchMapping(value = "/current_user/{userid}/address/{id}")
+    public void updateAddress(@PathVariable String userid, @PathVariable String id,@RequestBody AddressDto addressDto) throws JMSException {
+        userService.updateAddress(addressDto,userid, id);
+    }
+
+    @PostMapping(value = "/address/{id}")
+    public void createAddress(@PathVariable("id") String id,@RequestBody AddressDto addressDto){
+
+        addressService.add(addressDto, id);
+
+    }
 
     @GetMapping(value = "/")
     public ModelAndView get(HttpServletRequest request) {

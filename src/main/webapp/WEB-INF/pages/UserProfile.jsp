@@ -2,18 +2,27 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+
 <html>
 <head>
     <meta name="_csrf" content="${_csrf.token}"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Пример на bootstrap 4: Checkout - пользовательская форма заказа, показывающая компоненты формы и функции проверки. Версия v4.0.0">
-    <meta name="author" content="">
-    <link rel="icon" href="../../../../favicon.ico">
+
+    <style>
+        #content{
+            min-height:100%;
+        }
+    </style>
+
+
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/UserProfile.js"></script>
 
     <link href="${pageContext.request.contextPath}/resources/css/my.css" rel="stylesheet">
+
     <link rel="icon" href="${pageContext.request.contextPath}/resources/img/mdb-favicon.ico" type="image/x-icon">
     <!-- Font Awesome -->
     <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
@@ -27,12 +36,16 @@
     <%--    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">--%>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/mystyle.css">
 
+
+
 <script type="text/javascript">
 
     $(document).ready(function() {
         $.getScript(getProfile());
+        getAddress();
     });
 </script>
+    <title>User Profile</title>
 
 </head>
 
@@ -53,8 +66,9 @@
     </nav>
 </header>
 
+<main>
 
-<div class="container">
+<div id="content"  class="container">
     <div class="row flex-lg-nowrap">
         <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
             <div class="card p-3">
@@ -88,11 +102,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <ul class="nav nav-tabs">
-                                    <li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
+                                <ul id="tabs" class="nav nav-tabs">
+                                    <li class="nav-item" onclick="SettingsClick()"><a id="set"  class="active nav-link navv" >Settings</a></li>
+                                    <li class="nav-item" onclick="AddressClick()"><a id="adr"  class="nav-link navv"  >Addresses</a></li>
+                                    <li  class="nav-item" onclick="$('.navv').removeClass('active');$('#ord').addClass('active');"><a id="ord"  class="nav-link navv"  >Orders</a></li>
                                 </ul>
-                                <div class="tab-content pt-3">
-                                    <div class="tab-pane active">
+                                <div id="ProfileTab" class="tab-content pt-3">
+                                    <div id="tab-pane" class="tab-pane active">
                                         <form class="form" novalidate="">
                                             <div class="row">
                                                 <div class="col">
@@ -135,10 +151,16 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div class="row">
+                                                        <div class="col d-flex justify-content-begin">
+                                                            <button class="btn btn-primary" onclick="update()" type="button">Save Changes</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
+
                                             </div>
-                                            <div class="row">
-                                                <div class="col-12 col-sm-6 mb-3">
+                                            <div class="row mt-3">
+                                                <div class="col-12">
                                                     <div class="mb-2"><b>Change Password</b></div>
                                                     <div class="row">
                                                         <div class="col">
@@ -164,36 +186,13 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-sm-5 offset-sm-1 mb-3">
-                                                    <div class="mb-2"><b>Keeping in Touch</b></div>
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <label>Email Notifications</label>
-                                                            <div class="custom-controls-stacked px-2">
-                                                                <div class="custom-control custom-checkbox">
-                                                                    <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
-                                                                    <label class="custom-control-label" for="notifications-blog">Blog posts</label>
-                                                                </div>
-                                                                <div class="custom-control custom-checkbox">
-                                                                    <input type="checkbox" class="custom-control-input" id="notifications-news" checked="">
-                                                                    <label class="custom-control-label" for="notifications-news">Newsletter</label>
-                                                                </div>
-                                                                <div class="custom-control custom-checkbox">
-                                                                    <input type="checkbox" class="custom-control-input" id="notifications-offers" checked="">
-                                                                    <label class="custom-control-label" for="notifications-offers">Personal Offers</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+
                                             </div>
                                             <div class="row">
                                                 <div class="col d-flex justify-content-begin">
                                                     <button class="btn btn-primary" onclick="changePassword()" type="button">Save New Password</button>
                                                 </div>
-                                                <div class="col d-flex justify-content-end">
-                                                    <button class="btn btn-primary" onclick="update()" type="button">Save Changes</button>
-                                                </div>
+
                                             </div>
                                         </form>
 
@@ -230,7 +229,7 @@
         </div>
     </div>
 </div>
-
+</main>
 
 <footer class="page-footer text-center font-small mt-4 wow fadeIn" style="background-color: cornflowerblue">
     <div class="pt-4">
@@ -257,6 +256,7 @@
     </div>
 
 </footer>
+</body>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
@@ -277,5 +277,4 @@
 <script type="text/javascript"></script>
 
 
-</body>
 </html>

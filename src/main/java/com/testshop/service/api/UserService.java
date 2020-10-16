@@ -1,5 +1,6 @@
 package com.testshop.service.api;
 
+import com.testshop.dto.AddressDto;
 import com.testshop.dto.UserDto;
 import com.testshop.model.User;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,5 +26,7 @@ public interface UserService {
 
     void changeUserPassword(UserDto userDto, String password, String currentPassword);
 
+    void deleteAddress(UserDto userDto, String id);
 
+    void updateAddress(AddressDto addressDto,String userId, String id);
 }

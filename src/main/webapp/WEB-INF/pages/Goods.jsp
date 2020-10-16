@@ -6,7 +6,6 @@
 <head>
     <title>Goods</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/js.cookie.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/GoodsPage.js"></script>
 
 
@@ -342,18 +341,7 @@ background-repeat: no-repeat; background-size: cover; ">
 </script>
 
 
-<%--    <script>--%>
-<%--    document.getElementById('Check1').onclick = function() {--%>
-<%--        if(document.getElementById('Check1').checked) {--%>
-<%--            localStorage.setItem('Check1', "true");--%>
-<%--        } else {--%>
-<%--            localStorage.setItem('Check1', "false");--%>
-<%--        }--%>
-<%--    }--%>
-<%--    if (localStorage.getItem('Check1') == "true") {--%>
-<%--        document.getElementById("Check1").setAttribute('checked','checked');--%>
-<%--    }--%>
-<%--</script>--%>
+
 
 
 

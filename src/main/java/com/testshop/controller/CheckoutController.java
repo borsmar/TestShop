@@ -10,13 +10,13 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@RequestMapping("/Checkout")
+@RequestMapping("/cart")
 public class CheckoutController {
 
     @GetMapping(value = "/")
-    public ModelAndView checkout(HttpSession session, Model model) {
+    public ModelAndView cart(HttpSession session, Model model) {
 
-        return new ModelAndView("payment");
+        return new ModelAndView("cart");
     }
 
 }

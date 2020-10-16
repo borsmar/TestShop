@@ -21,7 +21,6 @@ public class UserDAOImpl implements UserDAO {
     public User add(User user) {
         entityManager.persist(user);
         user = entityManager.find(User.class, user.getId());
-        entityManager.refresh(user);
         return user;
     }
 

@@ -9,13 +9,14 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
 public class AddressDto implements Serializable {
     private Long id;
     private List<Orders> orders;
-    private List<User> users;
+    private Set<User> users;
     private String state;
     private String city;
     private String ZipCode;

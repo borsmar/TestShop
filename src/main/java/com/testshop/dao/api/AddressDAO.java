@@ -13,6 +13,8 @@ public interface AddressDAO {
 
     Address getById(Long id);
 
+    Address getAddress(Address address);
+
     void update(Address address);
 
     void delete(Long id);

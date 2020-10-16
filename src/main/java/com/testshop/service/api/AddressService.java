@@ -13,7 +13,7 @@ public interface AddressService {
 
     AddressDto getById(Long id);
 
-    void add(Address address);
+    void add(AddressDto addressDto, String id);
 
     void update(AddressDto address) throws JMSException;
 

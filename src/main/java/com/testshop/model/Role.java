@@ -40,7 +40,7 @@ public class Role  implements Serializable {
     String name;
 
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     Set<User> users;
 
     @Override

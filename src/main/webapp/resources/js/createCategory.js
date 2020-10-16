@@ -11,7 +11,6 @@ function createCategory() {
         type: 'POST',
         headers: {"X-CSRF-TOKEN": token},
         contentType: 'application/json',
-         // mimeType: 'application/json',
         data: JSON.stringify(categoryDto) ,
         success: function () {
 

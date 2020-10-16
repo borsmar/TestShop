@@ -40,20 +40,21 @@ public class User implements Serializable {
     @Column
     String email;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {
+            CascadeType.PERSIST, CascadeType.MERGE
+    })
+    @JoinTable(
+            name = "users_address",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "address_id", referencedColumnName = "id"))
+    Set<Address> addresses;
 
-   // @ManyToMany(fetch = FetchType.LAZY)
-   // @JsonIgnore List<Address> addresses;
 
-  //  @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-  //  List<Orders> orders;
-
-
-
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    Set<Role> roles;
-
-
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {
+            CascadeType.PERSIST, CascadeType.MERGE
+    })
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(
